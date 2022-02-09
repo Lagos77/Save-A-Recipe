@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct RecipeView : View {
     @EnvironmentObject var cookBook : CookBook
@@ -21,7 +22,7 @@ struct RecipeView : View {
             if let recipe = recipe {
                 Text(recipe.name)
                     .font(.system(size: 40))
-                recipe.image
+                WebImage(url: URL(string: recipe.image))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }

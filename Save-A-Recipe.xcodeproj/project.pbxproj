@@ -24,6 +24,8 @@
 		AFA7197B27B2A0A60026E263 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7197A27B2A0A60026E263 /* RecipeView.swift */; };
 		AFA7197D27B2A0D20026E263 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7197C27B2A0D20026E263 /* Recipe.swift */; };
 		AFA7197F27B2A0F90026E263 /* ShoppingCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7197E27B2A0F90026E263 /* ShoppingCartView.swift */; };
+		AFA7198127B2ABA80026E263 /* AddRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7198027B2ABA80026E263 /* AddRecipeView.swift */; };
+		AFA7198427B3B2F30026E263 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AFA7198327B3B2F30026E263 /* SDWebImageSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		AFA7197A27B2A0A60026E263 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		AFA7197C27B2A0D20026E263 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		AFA7197E27B2A0F90026E263 /* ShoppingCartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartView.swift; sourceTree = "<group>"; };
+		AFA7198027B2ABA80026E263 /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFA7198427B3B2F30026E263 /* SDWebImageSwiftUI in Frameworks */,
 				AFA7197127B298E40026E263 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				AFA7197327B298E40026E263 /* FirebaseStorage in Frameworks */,
 				AFA7196D27B298E40026E263 /* FirebaseAuth in Frameworks */,
@@ -117,6 +121,7 @@
 				AFA7194127B295E80026E263 /* Save_A_RecipeApp.swift */,
 				AFA7197427B299460026E263 /* GoogleService-Info.plist */,
 				AFA7194327B295E80026E263 /* ContentView.swift */,
+				AFA7198027B2ABA80026E263 /* AddRecipeView.swift */,
 				AFA7197627B2A0530026E263 /* RecipeViewModel.swift */,
 				AFA7197827B2A07F0026E263 /* CookBook.swift */,
 				AFA7197A27B2A0A60026E263 /* RecipeView.swift */,
@@ -174,6 +179,7 @@
 				AFA7196E27B298E40026E263 /* FirebaseFirestore */,
 				AFA7197027B298E40026E263 /* FirebaseFirestoreSwift-Beta */,
 				AFA7197227B298E40026E263 /* FirebaseStorage */,
+				AFA7198327B3B2F30026E263 /* SDWebImageSwiftUI */,
 			);
 			productName = "Save-A-Recipe";
 			productReference = AFA7193E27B295E80026E263 /* Save-A-Recipe.app */;
@@ -249,6 +255,7 @@
 			mainGroup = AFA7193527B295E80026E263;
 			packageReferences = (
 				AFA7196B27B298E40026E263 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				AFA7198227B3B2F20026E263 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = AFA7193F27B295E80026E263 /* Products */;
 			projectDirPath = "";
@@ -295,6 +302,7 @@
 			files = (
 				AFA7197927B2A07F0026E263 /* CookBook.swift in Sources */,
 				AFA7194427B295E80026E263 /* ContentView.swift in Sources */,
+				AFA7198127B2ABA80026E263 /* AddRecipeView.swift in Sources */,
 				AFA7197727B2A0540026E263 /* RecipeViewModel.swift in Sources */,
 				AFA7197D27B2A0D20026E263 /* Recipe.swift in Sources */,
 				AFA7197F27B2A0F90026E263 /* ShoppingCartView.swift in Sources */,
@@ -656,6 +664,14 @@
 				kind = branch;
 			};
 		};
+		AFA7198227B3B2F20026E263 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -678,6 +694,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = AFA7196B27B298E40026E263 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		AFA7198327B3B2F30026E263 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AFA7198227B3B2F20026E263 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

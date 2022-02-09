@@ -31,7 +31,8 @@ class RecipeViewModel: ObservableObject {
                 let image = data["image"] as? String ?? "Varför är du tom?"
                 
                 
-                return Recipe(name: name, ingredient: ingredient, howToCook: howToCook, image: Image(image))
+                //return Recipe(name: name, ingredient: ingredient, howToCook: howToCook, image: Image(image))
+                return Recipe(name: name, ingredient: ingredient, howToCook: howToCook, image: image)
     }
     }
 }
