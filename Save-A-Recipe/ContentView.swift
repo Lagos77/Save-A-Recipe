@@ -15,6 +15,8 @@ struct ContentView: View {
     
     @State var showInfo : Bool = false
     
+   
+    
     
     var db = Firestore.firestore()
     @ObservedObject private var viewModel = RecipeViewModel()
@@ -36,7 +38,7 @@ struct ContentView: View {
                 .onAppear() {
                     self.viewModel.fetchData()
                 }
-                .navigationBarItems(leading: NavigationLink(destination: AddRecipeView()){
+                .navigationBarItems(leading: NavigationLink(destination: AddRecipeView(newRecipeIngredients: [], newHowToCookSteps: [])){
                     Image(systemName: "plus")
                 })
                 .navigationBarItems(trailing: NavigationLink(destination: ShoppingCartView()){
@@ -76,9 +78,9 @@ struct RowView : View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}
 

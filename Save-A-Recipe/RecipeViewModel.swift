@@ -28,7 +28,8 @@ class RecipeViewModel: ObservableObject {
                 let name = data["name"] as? String ?? ""
                 let ingredient = data["ingredient"] as? Array ?? [""]
                 let howToCook = data["howToCook"] as? Array ?? [""]
-                let image = data["image"] as? String ?? "Varför är du tom?"
+                let image = data["image"] as? String ?? "https://firebasestorage.googleapis.com/v0/b/save-a-recipe-8fe67.appspot.com/o/new.jpeg?alt=media&token=bb2afc7f-309c-40a4-90a9-ed65c9e9072f"
+                
                 
                 
                 //return Recipe(name: name, ingredient: ingredient, howToCook: howToCook, image: Image(image))
