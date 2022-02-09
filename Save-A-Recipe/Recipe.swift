@@ -13,6 +13,6 @@ struct Recipe : Identifiable, Equatable {
     var name : String
     var ingredient : [String]
     var howToCook : [String]
-    var image : Image
+    var image : String
     }
 

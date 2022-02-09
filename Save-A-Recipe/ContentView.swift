@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Firebase
+import SDWebImage
+import SDWebImageSwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var cookBook : CookBook
@@ -34,7 +36,7 @@ struct ContentView: View {
                 .onAppear() {
                     self.viewModel.fetchData()
                 }
-                .navigationBarItems(leading: NavigationLink(destination: RecipeView()){
+                .navigationBarItems(leading: NavigationLink(destination: AddRecipeView()){
                     Image(systemName: "plus")
                 })
                 .navigationBarItems(trailing: NavigationLink(destination: ShoppingCartView()){
@@ -49,11 +51,16 @@ struct RowView : View {
     var recipe : Recipe
     
     
+    
     var body: some View {
         
+        
+       
+        
         ZStack(alignment: .top){
+           
             
-            recipe.image
+            WebImage(url: URL(string: recipe.image))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             //.frame(maxWidth: 40)
@@ -65,6 +72,7 @@ struct RowView : View {
                 .foregroundColor(Color.white)
                 .multilineTextAlignment(.center)
         }
+    
     }
 }
 
