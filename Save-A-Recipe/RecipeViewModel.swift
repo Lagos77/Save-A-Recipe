@@ -23,7 +23,7 @@ class RecipeViewModel: ObservableObject {
                 return
             }
             self.recipes = documents.map {(queryDocumentSnapshot) -> Recipe in
-          let data = queryDocumentSnapshot.data()
+                let data = queryDocumentSnapshot.data()
                 
                 let name = data["name"] as? String ?? ""
                 let ingredient = data["ingredient"] as? Array ?? [""]
@@ -34,8 +34,8 @@ class RecipeViewModel: ObservableObject {
                 
                 //return Recipe(name: name, ingredient: ingredient, howToCook: howToCook, image: Image(image))
                 return Recipe(name: name, ingredient: ingredient, howToCook: howToCook, image: image)
+            }
+        }
     }
-    }
-}
 }
 

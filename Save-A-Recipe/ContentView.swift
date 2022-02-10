@@ -15,7 +15,7 @@ struct ContentView: View {
     
     @State var showInfo : Bool = false
     
-   
+    
     
     
     var db = Firestore.firestore()
@@ -52,16 +52,9 @@ struct ContentView: View {
 struct RowView : View {
     var recipe : Recipe
     
-    
-    
     var body: some View {
         
-        
-       
-        
         ZStack(alignment: .top){
-           
-            
             WebImage(url: URL(string: recipe.image))
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -74,7 +67,6 @@ struct RowView : View {
                 .foregroundColor(Color.white)
                 .multilineTextAlignment(.center)
         }
-    
     }
 }
 

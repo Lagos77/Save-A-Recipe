@@ -15,7 +15,6 @@ struct RecipeView : View {
     
     @State  var howTo = false
     
-    
     var body: some View {
         
         VStack {
@@ -28,9 +27,7 @@ struct RecipeView : View {
             }
             HStack{
                 Button(action: {
-                    
                     howTo = false
-                    
                 }, label: {Text("Ingredienser")
                 })  .padding(4)
                     .background(howTo ? Color.white : Color(red: 238 / 255, green: 232 / 255, blue: 234 / 255))
