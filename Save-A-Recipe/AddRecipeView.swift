@@ -21,6 +21,7 @@ struct AddRecipeView: View {
     @State var newHowToCookSteps: [String]
     @State var recipe : Recipe?
     var db = Firestore.firestore()
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
      //   Text("Här kan man lägga till nya recept")
@@ -28,12 +29,12 @@ struct AddRecipeView: View {
             TextField("Name", text: $newRecipeName)
 
             TextField("Add ingredient", text: $newIngredient)
-            Button(action: {newRecipeIngredients.append(newIngredient); print(newRecipeIngredients)}, label: {Text("add ingredient")})
+            Button(action: {newRecipeIngredients.append(newIngredient); newIngredient = ""}, label: {Text("add ingredient")})
             
             TextField("Add step", text: $newHowToCookStep)
-            Button(action: {newHowToCookSteps.append(newHowToCookStep); print(newHowToCookSteps)}, label: {Text("add step")})
+            Button(action: {newHowToCookSteps.append(newHowToCookStep); newHowToCookStep = ""}, label: {Text("add step")})
 
-            Button(action: {addIngredientToRecipe()}, label: {
+            Button(action: {addIngredientToRecipe(); presentationMode.wrappedValue.dismiss()}, label: {
                 Text("Add")
             })
 
