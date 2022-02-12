@@ -30,9 +30,15 @@ struct ContentView: View {
                             RowView(recipe: recipe)
                         }
                     }
-                    .onDelete(perform: { indexSet in
-                        cookBook.recipes.remove(atOffsets: indexSet)
-                    })
+                    .onDelete() { indexSet in
+                            
+                                        for index in indexSet {
+                                            let recipe = viewModel.recipes[index]
+                                            if let id = recipe.id {
+                                                db.collection("recipes").document(id).delete()
+                                            }
+                                        }
+                                    }
                 }
                 .navigationTitle("Recipes")
                 .onAppear() {
