@@ -59,22 +59,29 @@ struct AddRecipeView: View {
                 }
             }
             
-            Button(action: {addIngredientToRecipe(); presentationMode.wrappedValue.dismiss()}, label: {
+            Button(action: {saveToFirestore(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
+                
+            }
+                   , label: {
                 Text("Add to list of recipes")
             })
         }
     }
     
-    func addIngredientToRecipe() {
-        //        newRecipeIngredients.append(newIngredient)
-        //        newHowToCookSteps.append(newHowToCookStep)
-        print(newRecipeIngredients)
-        db.collection("recipes").addDocument(data: ["name" : newRecipeName, "ingredient" : newRecipeIngredients, "howToCook" : newHowToCookSteps])
-        //db.collection("recipes").addDocument(data: ["ingredient" : newRecipeIngredients])
-    }
+
     
     func addRecipeToFB(){
         
+    }
+    
+    func saveToFirestore(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
+        let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: "https://firebasestorage.googleapis.com/v0/b/save-a-recipe2.appspot.com/o/new.jpeg?alt=media&token=af1a3dc8-6959-4d35-bd20-d4946229ebd6")
+        
+        do {
+                   _ = try db.collection("recipes").addDocument(from: recipe)
+               } catch {
+                   print("Error saving to DB")
+               }
     }
     
 }

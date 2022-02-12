@@ -7,12 +7,13 @@
 
 import Foundation
 import SwiftUI
+import FirebaseFirestoreSwift
 
-struct Recipe : Identifiable, Equatable {
-    var id = UUID()
+struct Recipe : Identifiable, Equatable, Codable {
+    @DocumentID var id : String?
     var name : String
     var ingredient : [String]
     var howToCook : [String]
-    var image : String
+    var image : String 
     }
 
