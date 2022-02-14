@@ -138,7 +138,8 @@ struct AddRecipeView: View {
                 let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: imageRef )
                 
                 do {
-                    _ = try db.collection("recipes").addDocument(from: recipe)
+                  //  _ = try db.collection("recipes").addDocument(from: recipe)
+                    _ = try db.collection("user").document(uid).collection("recipes").addDocument(from: recipe)
                 } catch {
                     print("Error saving to DB")
                 }

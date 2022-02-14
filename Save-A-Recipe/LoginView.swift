@@ -22,7 +22,12 @@ struct LoginView: View {
             ScrollView {
                 
                 VStack(spacing: 16) {
-                   
+                    Picker(selection: $isLoginMode, label: Text("Picker here")) {
+                                          Text("Login")
+                                              .tag(true)
+                                          Text("Create Account")
+                                              .tag(false)
+                                      }.pickerStyle(SegmentedPickerStyle())
                     
                     if !isLoginMode {
                         Button {

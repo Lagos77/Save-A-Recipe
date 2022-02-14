@@ -19,11 +19,13 @@ struct ContentView: View {
     
     
     var db = Firestore.firestore()
+    var uid = Auth.auth().currentUser?.uid
     @ObservedObject private var viewModel = RecipeViewModel()
     
     var body: some View {
         NavigationView{
             VStack {
+                Button(action: {viewModel.logout(); print(uid)}, label: {Image(systemName: "rectangle.portrait.and.arrow.right")})
                 List(){
                     ForEach(viewModel.recipes) { recipe in
                         NavigationLink(destination: RecipeView(recipe: recipe)) {
@@ -35,7 +37,10 @@ struct ContentView: View {
                                         for index in indexSet {
                                             let recipe = viewModel.recipes[index]
                                             if let id = recipe.id {
-                                                db.collection("recipes").document(id).delete()
+                                                if let uid = uid {
+                                               // db.collection("recipes").document(id).delete()
+                                                db.collection("user").document(uid).collection("recipes").document(id).delete()
+                                            }
                                             }
                                         }
                                     }
