@@ -26,6 +26,8 @@
 		AFA7197F27B2A0F90026E263 /* ShoppingCartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7197E27B2A0F90026E263 /* ShoppingCartView.swift */; };
 		AFA7198127B2ABA80026E263 /* AddRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7198027B2ABA80026E263 /* AddRecipeView.swift */; };
 		AFA7198427B3B2F30026E263 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = AFA7198327B3B2F30026E263 /* SDWebImageSwiftUI */; };
+		AFB579A527B7D81E0029E6ED /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB579A427B7D81E0029E6ED /* LoginView.swift */; };
+		AFB579A727B802E60029E6ED /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB579A627B802E50029E6ED /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		AFA7197C27B2A0D20026E263 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		AFA7197E27B2A0F90026E263 /* ShoppingCartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartView.swift; sourceTree = "<group>"; };
 		AFA7198027B2ABA80026E263 /* AddRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeView.swift; sourceTree = "<group>"; };
+		AFB579A427B7D81E0029E6ED /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		AFB579A627B802E50029E6ED /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,9 +123,11 @@
 			isa = PBXGroup;
 			children = (
 				AFA7194127B295E80026E263 /* Save_A_RecipeApp.swift */,
+				AFB579A627B802E50029E6ED /* ImagePicker.swift */,
 				AFA7197427B299460026E263 /* GoogleService-Info.plist */,
 				AFA7194327B295E80026E263 /* ContentView.swift */,
 				AFA7198027B2ABA80026E263 /* AddRecipeView.swift */,
+				AFB579A427B7D81E0029E6ED /* LoginView.swift */,
 				AFA7197627B2A0530026E263 /* RecipeViewModel.swift */,
 				AFA7197827B2A07F0026E263 /* CookBook.swift */,
 				AFA7197A27B2A0A60026E263 /* RecipeView.swift */,
@@ -303,9 +309,11 @@
 				AFA7197927B2A07F0026E263 /* CookBook.swift in Sources */,
 				AFA7194427B295E80026E263 /* ContentView.swift in Sources */,
 				AFA7198127B2ABA80026E263 /* AddRecipeView.swift in Sources */,
+				AFB579A527B7D81E0029E6ED /* LoginView.swift in Sources */,
 				AFA7197727B2A0540026E263 /* RecipeViewModel.swift in Sources */,
 				AFA7197D27B2A0D20026E263 /* Recipe.swift in Sources */,
 				AFA7197F27B2A0F90026E263 /* ShoppingCartView.swift in Sources */,
+				AFB579A727B802E60029E6ED /* ImagePicker.swift in Sources */,
 				AFA7194227B295E80026E263 /* Save_A_RecipeApp.swift in Sources */,
 				AFA7197B27B2A0A60026E263 /* RecipeView.swift in Sources */,
 			);
