@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import SwiftUI
+import Firebase
 
 
 
@@ -15,11 +16,21 @@ class RecipeViewModel: ObservableObject {
     @Published var recipes = [Recipe]()
     
     private var db = Firestore.firestore()
+    let uid = Auth.auth().currentUser?.uid
     
-
+    func logout() {
+        let firebaseAuth = Auth.auth()
+    do {
+      try firebaseAuth.signOut()
+    } catch let signOutError as NSError {
+      print("Error signing out: %@", signOutError)
+    }
+    }
     
     func fetchData() {
-            db.collection("recipes").addSnapshotListener { snapshot, err in
+        if let uid = uid {
+        db.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
+         //   db.collection("recipes").addSnapshotListener { snapshot, err in
                 guard let snapshot = snapshot else { return }
                 
                 if let err = err {
@@ -44,6 +55,7 @@ class RecipeViewModel: ObservableObject {
                     }
                 }
             }
+        }
         }
 }
 
