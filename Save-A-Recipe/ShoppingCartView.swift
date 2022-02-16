@@ -12,34 +12,34 @@ struct ShoppingCartView: View {
     
     
         var db = Firestore.firestore()
-        @State var ingredients = [Ingredient]()
-        @State var newIngredient = ""
+        @State var products = [Product]()
+        @State var newProduct = ""
         let uid = Auth.auth().currentUser?.uid
         
         var body: some View {
             VStack {
                 List {
-                    ForEach(ingredients) { ingredient in
+                    ForEach(products) { product in
                         HStack {
-                            Text(ingredient.name)
+                            Text(product.name)
                             Spacer()
                             Button(action: {
                                 
-                                if let id = ingredient.id {
+                                if let id = product.id {
                                     if let uid = uid {
-                                    db.collection("user").document(uid).collection("shoppingCart").document(id).updateData(["done" : !ingredient.done ] ) //------------------------ ändras
+                                    db.collection("user").document(uid).collection("shoppingCart").document(id).updateData(["done" : !product.done ] ) //------------------------ ändras
                                     }
                                 }
                                     
                             }, label: {
-                                Image(systemName: ingredient.done ? "checkmark.square" : "square")
+                                Image(systemName: product.done ? "checkmark.square" : "square")
                             })
                         }
                     }.onDelete() { indexSet in
             
                         for index in indexSet {
-                            let ingredient = ingredients[index]
-                            if let id = ingredient.id {
+                            let product = products[index]
+                            if let id = product.id {
                                 if let uid = uid {
                                 db.collection("user").document(uid).collection("shoppingCart").document(id).delete() //------------------------ ändras
                                 }
@@ -48,11 +48,11 @@ struct ShoppingCartView: View {
                     }
                 }
                 HStack {
-                    TextField("Ingredient",text: $newIngredient ).padding()
+                    TextField("Product",text: $newProduct ).padding()
                     Spacer()
                     Button(action: {
-                        saveToFirestore(ingredientName: newIngredient)
-                        newIngredient = ""
+                        saveToFirestore(productName: newProduct)
+                        newProduct = ""
                     }, label: {
                         Text("Save")
                     }).padding()
@@ -63,11 +63,11 @@ struct ShoppingCartView: View {
             }
         }
         
-        func saveToFirestore(ingredientName: String) {
-            let ingredient = Ingredient(name: ingredientName)
+        func saveToFirestore(productName: String) {
+            let product = Product(name: productName)
             if let uid = uid {
             do {
-                _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: ingredient) //------------------------ ändras
+                _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: product) //------------------------ ändras
             } catch {
                 print("Error saving to DB")
             }
@@ -86,16 +86,16 @@ struct ShoppingCartView: View {
                 if let err = err {
                     print("Error getting document \(err)")
                 } else {
-                    ingredients.removeAll()
+                    products.removeAll()
                     for document in snapshot.documents {
                         let result = Result {
-                            try document.data(as: Ingredient.self)
+                            try document.data(as: Product.self)
                         }
                         switch result {
                         case .success(let ingredient) :
                             if let ingredient = ingredient {
                                 //print("Item: \(item)")
-                                ingredients.append(ingredient)
+                                products.append(ingredient)
                             } else {
                                 print("Document does not exist")
                             }

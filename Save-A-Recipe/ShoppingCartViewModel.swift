@@ -12,18 +12,19 @@ class ShoppingCartViewModel: ObservableObject {
 
     var db = Firestore.firestore()
     let uid = Auth.auth().currentUser?.uid
-    @Published var ingredients = [Ingredient]()
-    @Published var newIngredient = ""
+    @Published var products = [Product]()
+    @Published var newProduct = ""
     
     
-    func saveToFirestore(ingredientName: String) {
-        let ingredient = Ingredient(name: ingredientName)
-        
+    func saveToFirestore(productName: String) {
+        let product = Product(name: productName)
+        if let uid = uid {
         do {
-            _ = try db.collection("items").addDocument(from: ingredient)
+            _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: product)
         } catch {
             print("Error saving to DB")
         }
+    }
        // db.collection("tmp").addDocument(data: ["name" : "David"])
     }
     
@@ -34,16 +35,16 @@ class ShoppingCartViewModel: ObservableObject {
             if let err = err {
                 print("Error getting document \(err)")
             } else {
-                self.ingredients.removeAll()
+                self.products.removeAll()
                 for document in snapshot.documents {
                     let result = Result {
-                        try document.data(as: Ingredient.self)
+                        try document.data(as: Product.self)
                     }
                     switch result {
                     case .success(let ingredient) :
                         if let ingredient = ingredient {
                             //print("Item: \(item)")
-                            self.ingredients.append(ingredient)
+                            self.products.append(ingredient)
                         } else {
                             print("Document does not exist")
                         }
