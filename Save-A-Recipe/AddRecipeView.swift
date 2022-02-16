@@ -120,7 +120,7 @@ struct AddRecipeView: View {
         let ref = Storage.storage().reference(withPath: uid + newRecipeName)
         //  let ref = Storage.storage().reference().child("\(uid) + \(newRecipeName).jpeg")
         // guard let imageData = self.image?.jpegData(compressionQuality: 0.5) else { return }
-        guard let imageData = (image ?? image)!.jpegData(compressionQuality: 1.0) else { return }
+        guard let imageData = (image).jpegData(compressionQuality: 1.0) else { return }
         ref.putData(imageData, metadata: metadata) { metadata, err in
             if let err = err {
                 self.loginStatusMEssage = "Failed to push image to Storage: \(err)"
