@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Firebase
 
 struct RecipeView : View {
     @EnvironmentObject var cookBook : CookBook
@@ -14,8 +15,21 @@ struct RecipeView : View {
     @Environment(\.presentationMode) var presentationMode
     
     @State  var howTo = false
+    @State var recipeIngredients = [String]()
+    @State var product : Product?
+    @State var products = [Product]()
+    var db = Firestore.firestore()
+    @State var uid = Auth.auth().currentUser?.uid
     
     var body: some View {
+        
+        Button {
+            addRecipeToCart()
+        } label: {
+            Image(systemName: "plus")
+                .font(.system(size: 22, weight: .bold))
+                .foregroundColor(Color(.label))
+        }
         
         VStack {
             if let recipe = recipe {
@@ -60,6 +74,27 @@ struct RecipeView : View {
         }
     }
     
+    func addRecipeToCart() {
+        if let recipe = recipe {
+            recipeIngredients.append(contentsOf: recipe.ingredient)
+        }
+        print(recipeIngredients)
+        
+        for ingredient in recipeIngredients {
+            if let uid = uid {
+            let product = Product(name: ingredient)
+            do {
+              //  _ = try db.collection("recipes").addDocument(from: recipe)
+                _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: product)
+            } catch {
+                print("Error saving to DB")
+            }
+        }
+        }
+        
+        
+    }
+}
     
     
     
@@ -104,4 +139,4 @@ struct RecipeView : View {
      }
      }
      */
-}
+
