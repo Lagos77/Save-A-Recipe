@@ -17,9 +17,9 @@ struct AddRecipeView: View {
     @State var newHowToCookStep: String = ""
     @State var newHowToCookSteps: [String]
     @State var recipe : Recipe?
-//    @State var recipeIngredients = [String]()
-//    @State var product : Product?
-//    @State var products = [Product]()
+    //    @State var recipeIngredients = [String]()
+    //    @State var product : Product?
+    //    @State var products = [Product]()
     var db = Firestore.firestore()
     @State var shouldShowImagePicker = false
     @State var image: UIImage?
@@ -93,9 +93,10 @@ struct AddRecipeView: View {
                         }
                     }
                     
-                    Button(action: {persistImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
-                        
-                    }
+                    Button(action:{persistImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
+                            
+                        }
+                    
                            , label: {
                         Text("Add to list of recipes")
                     })
@@ -110,14 +111,15 @@ struct AddRecipeView: View {
     }
     
     private func persistImageToStorageAndSaveRecipe(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
-   //     let fileName = UUID().uuidString
+        if let image = image {
+        
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpg"
         guard let uid = Auth.auth().currentUser?.uid
         else { return }
-       let ref = Storage.storage().reference(withPath: uid + newRecipeName)
-      //  let ref = Storage.storage().reference().child("\(uid) + \(newRecipeName).jpeg")
-       // guard let imageData = self.image?.jpegData(compressionQuality: 0.5) else { return }
+        let ref = Storage.storage().reference(withPath: uid + newRecipeName)
+        //  let ref = Storage.storage().reference().child("\(uid) + \(newRecipeName).jpeg")
+        // guard let imageData = self.image?.jpegData(compressionQuality: 0.5) else { return }
         guard let imageData = (image ?? image)!.jpegData(compressionQuality: 1.0) else { return }
         ref.putData(imageData, metadata: metadata) { metadata, err in
             if let err = err {
@@ -125,7 +127,7 @@ struct AddRecipeView: View {
                 return
             }
             
-           
+            
             
             ref.downloadURL { url, err in
                 if let err = err {
@@ -137,24 +139,25 @@ struct AddRecipeView: View {
                 imageRef = url?.absoluteString ?? ""
                 print("imageRef i persistImage = \(imageRef)")
                 print("imageRef 1 i saveToFireStore = \(imageRef)")
-//                guard let uid = Auth.auth().currentUser?.uid
-//                else { return }
+                //                guard let uid = Auth.auth().currentUser?.uid
+                //                else { return }
                 
                 let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: imageRef )
                 
                 do {
-                  //  _ = try db.collection("recipes").addDocument(from: recipe)
+                    //  _ = try db.collection("recipes").addDocument(from: recipe)
                     _ = try db.collection("user").document(uid).collection("recipes").addDocument(from: recipe)
                 } catch {
                     print("Error saving to DB")
                 }
                 print("imageRef 2 i saveToFireStore = \(imageRef)")
-            //    persistImageToStorage()
+                //    persistImageToStorage()
                 print("imageRef 3 i saveToFireStore = \(imageRef)")
                 
                 
             }
             
+        }
         }
     }
     
@@ -164,21 +167,21 @@ struct AddRecipeView: View {
     
     
     
-//    func saveToFirestore(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
-//        print("imageRef 1 i saveToFireStore = \(imageRef)")
-//        guard let uid = Auth.auth().currentUser?.uid
-//        else { return }
-//        let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: imageRef )
-//
-//        do {
-//            _ = try db.collection("recipes").addDocument(from: recipe)
-//        } catch {
-//            print("Error saving to DB")
-//        }
-//        print("imageRef 2 i saveToFireStore = \(imageRef)")
-//    //    persistImageToStorage()
-//        print("imageRef 3 i saveToFireStore = \(imageRef)")
-//    }
+    //    func saveToFirestore(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
+    //        print("imageRef 1 i saveToFireStore = \(imageRef)")
+    //        guard let uid = Auth.auth().currentUser?.uid
+    //        else { return }
+    //        let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: imageRef )
+    //
+    //        do {
+    //            _ = try db.collection("recipes").addDocument(from: recipe)
+    //        } catch {
+    //            print("Error saving to DB")
+    //        }
+    //        print("imageRef 2 i saveToFireStore = \(imageRef)")
+    //    //    persistImageToStorage()
+    //        print("imageRef 3 i saveToFireStore = \(imageRef)")
+    //    }
     
 }
 
@@ -191,11 +194,11 @@ struct AddRecipeView: View {
 
 
 /*
-rules_version = '2';
+ rules_version = '2';
  service firebase.storage {
-   match /b/{bucket}/o {
-     match /{allPaths=**} {
-       allow read, write: if true;
-     }
-   }
+ match /b/{bucket}/o {
+ match /{allPaths=**} {
+ allow read, write: if true;
+ }
+ }
  }*/
