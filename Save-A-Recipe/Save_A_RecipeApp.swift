@@ -13,14 +13,20 @@ import Firebase
 struct Save_A_RecipeApp: App {
     @StateObject var cookBook = CookBook()
     
+    
     init(){
         FirebaseApp.configure()
     }
     
+    
+    
     var body: some Scene {
+        
         WindowGroup {
           //  LoginView()
             ContentView()
+           // CookBookView()
+           
                 .environmentObject(cookBook)
         }
     }
