@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 
-struct Ingredient : Codable , Identifiable{
+struct Product : Codable , Identifiable{
     @DocumentID var id : String?
     var name : String
     var done : Bool = false
