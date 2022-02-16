@@ -10,6 +10,8 @@ import Firebase
 
 struct LoginView: View {
     
+    let didCompleteLoginProcess: () -> ()
+    
     @State var isLoginMode = false
     @State var email = ""
     @State var password = ""
@@ -114,6 +116,8 @@ struct LoginView: View {
             
             print("Successfully logged in as user \(result?.user.uid ?? "")")
             self.loginStatusMEssage = "Successfully logged in as user \(result?.user.uid ?? "")"
+            
+            self.didCompleteLoginProcess()
         }
     }
     
@@ -162,8 +166,8 @@ struct LoginView: View {
     
 }
 
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView()
-    }
-}
+//struct LoginView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginView()
+//    }
+//}
