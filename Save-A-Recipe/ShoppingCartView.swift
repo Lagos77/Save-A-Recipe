@@ -27,7 +27,11 @@ struct ShoppingCartView: View {
                                 
                                 if let id = product.id {
                                     if let uid = uid {
-                                    db.collection("user").document(uid).collection("shoppingCart").document(id).updateData(["done" : !product.done ] ) //------------------------ ändras
+                                    db.collection("user").document(uid).collection("shoppingCart").document(id).updateData(["done" : !product.done ] )
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                                db.collection("user").document(uid).collection("shoppingCart").document(id).delete()
+                                                }
+                                            
                                     }
                                 }
                                     
@@ -41,7 +45,7 @@ struct ShoppingCartView: View {
                             let product = products[index]
                             if let id = product.id {
                                 if let uid = uid {
-                                db.collection("user").document(uid).collection("shoppingCart").document(id).delete() //------------------------ ändras
+                                db.collection("user").document(uid).collection("shoppingCart").document(id).delete()
                                 }
                             }
                         }
@@ -107,7 +111,16 @@ struct ShoppingCartView: View {
             }
             }
         }
+    
+    func delayDelete() {
+       
+            }
+            
+        
     }
+    
+    
+    
 
 
 struct ShoppingCartView_Previews: PreviewProvider {
