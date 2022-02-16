@@ -17,6 +17,9 @@ struct AddRecipeView: View {
     @State var newHowToCookStep: String = ""
     @State var newHowToCookSteps: [String]
     @State var recipe : Recipe?
+//    @State var recipeIngredients = [String]()
+//    @State var product : Product?
+//    @State var products = [Product]()
     var db = Firestore.firestore()
     @State var shouldShowImagePicker = false
     @State var image: UIImage?
@@ -27,6 +30,8 @@ struct AddRecipeView: View {
     var body: some View {
         NavigationView {
             ScrollView {
+                
+                
                 
                 VStack(alignment: .center){
                     Button {
@@ -156,6 +161,8 @@ struct AddRecipeView: View {
     func addRecipeToFB(){
         
     }
+    
+    
     
 //    func saveToFirestore(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
 //        print("imageRef 1 i saveToFireStore = \(imageRef)")
