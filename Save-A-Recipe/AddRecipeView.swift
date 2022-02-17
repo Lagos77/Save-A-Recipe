@@ -12,7 +12,7 @@ import Firebase
 struct AddRecipeView: View {
     
     @State var newIngredient: String = ""
-    @State var newRecipeIngredients : [String] = ["David", "Per"]
+    @State var newRecipeIngredients : [String] = []
     @State var newRecipeName: String = ""
     @State var newHowToCookStep: String = ""
     @State var newHowToCookSteps: [String]
@@ -23,13 +23,19 @@ struct AddRecipeView: View {
     @State var image: UIImage?
     @State var loginStatusMEssage = ""
     @State var imageRef = ""
-    @State var isAddingIngredients = true
+    @State var isNamingRecipe = true
+    @State var isAddingIngredients = false
+    @State var readyForPublishing = false
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
             VStack {
+                if newRecipeName == "" {
                 Text("Add a new recipe").font(.system(size: 30, weight: .bold))
+                } else {
+                    Text(newRecipeName).font(.system(size: 30, weight: .bold))
+                }
                 VStack{
                     Button {
                         shouldShowImagePicker.toggle()
@@ -52,15 +58,27 @@ struct AddRecipeView: View {
 //                        .overlay(RoundedRectangle(cornerRadius: 64)
 //                                    .stroke(Color.black, lineWidth: 3))
                     }
-                    HStack{
-                        Spacer()
+//                    HStack{
+//                        Spacer()
+//                    TextField("Name your recipe", text: $newRecipeName)
+//                        .multilineTextAlignment(TextAlignment.center)
+//                        .textFieldStyle(.roundedBorder)
+//                        Button(action: {newRecipeName = newRecipeName},
+//                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
+//                        Spacer()
+//                }
+                    if isNamingRecipe {
+                       // Spacer()
                     TextField("Name your recipe", text: $newRecipeName)
                         .multilineTextAlignment(TextAlignment.center)
                         .textFieldStyle(.roundedBorder)
+//                        Button(action: {newRecipeName = newRecipeName},
+//                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
                         Spacer()
-                }
-                    Spacer()
-                    if isAddingIngredients {
+                        Spacer()
+                    }
+                    
+                    else if isAddingIngredients {
                     HStack{
                         
                         Spacer()
@@ -79,7 +97,7 @@ struct AddRecipeView: View {
                         UITableView.appearance().backgroundColor = UIColor.clear
                         UITableViewCell.appearance().backgroundColor = UIColor.clear
                     }
-                    } else {
+                    } else if readyForPublishing {
                     HStack{
                         
                         Spacer()
@@ -102,18 +120,42 @@ struct AddRecipeView: View {
                     }
                     }
                 }
-                    
-                    
                 
-                if isAddingIngredients {
-                    Button(action: {isAddingIngredients.toggle()}, label: {Text("Add recipe steps")})
-                } else {
-                    Button(action:{persistImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()},
-                           label: {
-                        Text("Add to list of recipes")
-                    })
+            }.overlay(Button {
+                if isNamingRecipe {
+                    isNamingRecipe.toggle()
+                    isAddingIngredients.toggle()
+                
+                
+                } else if isAddingIngredients {
+                    isAddingIngredients.toggle()
+                    readyForPublishing.toggle()
+                } else if readyForPublishing {
+                    persistImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
                 }
-            }
+            } label: {
+                HStack {
+                    Spacer()
+//                    Text(isAddingIngredients ? "Steps" : "Add to list of recipes")
+                    if isNamingRecipe{
+                        Text("Add ingredients").font(.system(size: 15, weight: .bold))
+                        Spacer()
+                    } else if isAddingIngredients {
+                        Text("Add steps").font(.system(size: 15, weight: .bold))
+                        Spacer()
+                    } else if readyForPublishing {
+                        Text("Add to Cookbook").font(.system(size: 15, weight: .bold))
+                        Spacer()
+                    }
+                        
+                }
+                .foregroundColor(.white)
+                .padding(.vertical)
+                .background(Color.blue)
+                .cornerRadius(32)
+                .padding(.horizontal)
+            }, alignment: .bottom)
+            //.navigationBarHidden(true)
             
             
         }.navigationViewStyle(StackNavigationViewStyle())
@@ -172,3 +214,32 @@ struct AddRecipeView: View {
 }
 
 
+/*
+ if isAddingIngredients {
+     
+     .overlay(Button {
+         isAddingIngredients.toggle()
+     } label: {
+         HStack {
+             Spacer()
+             Text("Add new recipe")
+                 .font(.system(size: 15, weight: .bold))
+             Spacer()
+         }
+         .foregroundColor(.white)
+         .padding(.vertical)
+         .background(Color.blue)
+         .cornerRadius(32)
+         .padding(.horizontal)
+     }, alignment: .bottom)
+     .navigationBarHidden(true)
+     
+     
+    // Button(action: {isAddingIngredients.toggle()}, label: {Text("Add recipe steps")})
+ } else {
+     Button(action:{persistImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()},
+            label: {
+         Text("Add to list of recipes")
+     })
+ }
+ */
