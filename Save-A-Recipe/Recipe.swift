@@ -17,3 +17,6 @@ struct Recipe : Identifiable, Equatable, Codable {
     var image : String 
     }
 
+/*
+ @DocumentID var id : String? = UUID().uuidString
+ */

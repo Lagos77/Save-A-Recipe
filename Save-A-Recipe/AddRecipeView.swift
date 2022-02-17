@@ -6,104 +6,116 @@
 //
 
 import SwiftUI
-//import Foundation
+import Foundation
 import Firebase
 
 struct AddRecipeView: View {
     
     @State var newIngredient: String = ""
-    @State var newRecipeIngredients : [String] = []
+    @State var newRecipeIngredients : [String] = ["David", "Per"]
     @State var newRecipeName: String = ""
     @State var newHowToCookStep: String = ""
     @State var newHowToCookSteps: [String]
-    @State var recipe : Recipe?
-    //    @State var recipeIngredients = [String]()
-    //    @State var product : Product?
-    //    @State var products = [Product]()
+    @State var recipe = Recipe(name: "", ingredient: [], howToCook: [], image: "")
+    @State var addIngredients = true
     var db = Firestore.firestore()
     @State var shouldShowImagePicker = false
     @State var image: UIImage?
     @State var loginStatusMEssage = ""
     @State var imageRef = ""
+    @State var isAddingIngredients = true
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                
-                
-                
-                VStack(alignment: .center){
+            VStack {
+                Text("Add a new recipe").font(.system(size: 30, weight: .bold))
+                VStack{
                     Button {
                         shouldShowImagePicker.toggle()
                     } label: {
-                        
-                        VStack {
+
+                    //    VStack {
                             if let image = self.image {
                                 Image(uiImage: image)
                                     .resizable()
-                                    .frame(width: 128, height: 128)
-                                    .cornerRadius(64)
-                                    .scaledToFill()
+                                   // .frame(width: 128, height: 128)
+                                  //  .cornerRadius(64)
+                                    .scaledToFit()
                             } else {
-                                Image(systemName: "person.fill")
-                                    .font(.system(size: 64))
+                                Image(systemName: "photo.fill")
+                                    .font(.system(size: 128))
                                     .padding()
                                     .foregroundColor(Color(.label))
                             }
-                        }
-                        .overlay(RoundedRectangle(cornerRadius: 64)
-                                    .stroke(Color.black, lineWidth: 3))
+                    //    }
+//                        .overlay(RoundedRectangle(cornerRadius: 64)
+//                                    .stroke(Color.black, lineWidth: 3))
                     }
-                    
-                    
-                    Text("Add a recipe:")//.frame(maxWidth: .infinity, alignment: .center)
-                    Spacer()
-                    Spacer()
+                    HStack{
+                        Spacer()
                     TextField("Name your recipe", text: $newRecipeName)
                         .multilineTextAlignment(TextAlignment.center)
                         .textFieldStyle(.roundedBorder)
+                        Spacer()
+                }
                     Spacer()
-                    VStack(alignment: .center){
-                        
-                        HStack(alignment: .center){
-                            Spacer()
-                            TextField("Add ingredient", text: $newIngredient)
-                                .multilineTextAlignment(TextAlignment.center)
-                                .textFieldStyle(.roundedBorder)
-                            
-                            Button(action: {newRecipeIngredients.append(newIngredient); newIngredient = ""}, label: {Image(systemName: "text.badge.plus")})
-                            TextField("Add step", text: $newHowToCookStep)
-                                .multilineTextAlignment(TextAlignment.center)
-                                .textFieldStyle(.roundedBorder)
-                            
-                            Button(action: {newHowToCookSteps.append(newHowToCookStep); newHowToCookStep = ""}, label: {Image(systemName: "text.badge.plus")})
-                            Spacer()
-                        }
-                    }
+                    if isAddingIngredients {
                     HStack{
-                        List(newRecipeIngredients, id: \.self) { recipe in
-                            Text(recipe)
-                        }.onAppear() {
-                            UITableView.appearance().backgroundColor = UIColor.clear
-                            UITableViewCell.appearance().backgroundColor = UIColor.clear
-                        }
+                        
+                        Spacer()
+                    TextField("Add ingredient", text: $newIngredient)
+                        .multilineTextAlignment(TextAlignment.center)
+                        .textFieldStyle(.roundedBorder)
+                        Button(action: {newRecipeIngredients.append(newIngredient); newIngredient = ""; print(newRecipeIngredients); print("recipe.ingredient: \(recipe.ingredient)"); print(recipe)},
+                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
+                        Spacer()
+                         
+                    }
+                     
+                    List(newRecipeIngredients, id: \.self) { recipe in
+                        Text(recipe)
+                    }.onAppear() {
+                        UITableView.appearance().backgroundColor = UIColor.clear
+                        UITableViewCell.appearance().backgroundColor = UIColor.clear
+                    }
+                    } else {
+                    HStack{
+                        
+                        Spacer()
+                        TextField("Add step", text: $newHowToCookStep)
+                            .multilineTextAlignment(TextAlignment.center)
+                            .textFieldStyle(.roundedBorder)
+                        
+                        Button(action: {newHowToCookSteps.append(newHowToCookStep); newHowToCookStep = ""},
+                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
+                        Spacer()
+                        
+                         
+                    }
+                     
                         List(newHowToCookSteps, id: \.self) { step in
                             Text(step)
-                        }
+                        }.onAppear() {
+                        UITableView.appearance().backgroundColor = UIColor.clear
+                        UITableViewCell.appearance().backgroundColor = UIColor.clear
                     }
+                    }
+                }
                     
-                    Button(action:{persistImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
-                            
-                        }
                     
-                           , label: {
+                
+                if isAddingIngredients {
+                    Button(action: {isAddingIngredients.toggle()}, label: {Text("Add recipe steps")})
+                } else {
+                    Button(action:{persistImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()},
+                           label: {
                         Text("Add to list of recipes")
                     })
-                    //}
                 }
-                
             }
+            
+            
         }.navigationViewStyle(StackNavigationViewStyle())
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
                 ImagePicker(image: $image)
@@ -127,8 +139,6 @@ struct AddRecipeView: View {
                 return
             }
             
-            
-            
             ref.downloadURL { url, err in
                 if let err = err {
                     self.loginStatusMEssage = "Failed to retrieve downloadURL: \(err)"
@@ -145,7 +155,6 @@ struct AddRecipeView: View {
                 let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: imageRef )
                 
                 do {
-                    //  _ = try db.collection("recipes").addDocument(from: recipe)
                     _ = try db.collection("user").document(uid).collection("recipes").addDocument(from: recipe)
                 } catch {
                     print("Error saving to DB")
@@ -160,45 +169,6 @@ struct AddRecipeView: View {
         }
         }
     }
-    
-    func addRecipeToFB(){
-        
-    }
-    
-    
-    
-    //    func saveToFirestore(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
-    //        print("imageRef 1 i saveToFireStore = \(imageRef)")
-    //        guard let uid = Auth.auth().currentUser?.uid
-    //        else { return }
-    //        let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: imageRef )
-    //
-    //        do {
-    //            _ = try db.collection("recipes").addDocument(from: recipe)
-    //        } catch {
-    //            print("Error saving to DB")
-    //        }
-    //        print("imageRef 2 i saveToFireStore = \(imageRef)")
-    //    //    persistImageToStorage()
-    //        print("imageRef 3 i saveToFireStore = \(imageRef)")
-    //    }
-    
 }
 
-//struct AddRecipeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddRecipeView()
-//    }
-//}
 
-
-
-/*
- rules_version = '2';
- service firebase.storage {
- match /b/{bucket}/o {
- match /{allPaths=**} {
- allow read, write: if true;
- }
- }
- }*/

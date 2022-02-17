@@ -23,12 +23,30 @@
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<key>Save-A-Recipe.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>AFA7193D27B295E80026E263</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFA7194D27B295F70026E263</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFA7195727B295F70026E263</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
