@@ -54,39 +54,30 @@ struct AddRecipeView: View {
                                     .padding()
                                     .foregroundColor(Color(.label))
                             }
-                    //    }
-//                        .overlay(RoundedRectangle(cornerRadius: 64)
-//                                    .stroke(Color.black, lineWidth: 3))
+
                     }
-//                    HStack{
-//                        Spacer()
-//                    TextField("Name your recipe", text: $newRecipeName)
-//                        .multilineTextAlignment(TextAlignment.center)
-//                        .textFieldStyle(.roundedBorder)
-//                        Button(action: {newRecipeName = newRecipeName},
-//                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
-//                        Spacer()
-//                }
+
                     if isNamingRecipe {
-                       // Spacer()
+
                     TextField("Name your recipe", text: $newRecipeName)
                         .multilineTextAlignment(TextAlignment.center)
                         .textFieldStyle(.roundedBorder)
-//                        Button(action: {newRecipeName = newRecipeName},
-//                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
+                        .padding(12)
+
                         Spacer()
                         Spacer()
                     }
                     
                     else if isAddingIngredients {
-                    HStack{
+                    VStack{
                         
-                        Spacer()
-                    TextField("Add ingredient", text: $newIngredient)
+                       // Spacer()
+                    TextField("Ingredient", text: $newIngredient)
                         .multilineTextAlignment(TextAlignment.center)
                         .textFieldStyle(.roundedBorder)
+                        .padding(12)
                         Button(action: {newRecipeIngredients.append(newIngredient); newIngredient = ""; print(newRecipeIngredients); print("recipe.ingredient: \(recipe.ingredient)"); print(recipe)},
-                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
+                               label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add ingredient")})
                         Spacer()
                          
                     }
@@ -98,15 +89,16 @@ struct AddRecipeView: View {
                         UITableViewCell.appearance().backgroundColor = UIColor.clear
                     }
                     } else if readyForPublishing {
-                    HStack{
+                    VStack{
                         
-                        Spacer()
-                        TextField("Add step", text: $newHowToCookStep)
+                      //  Spacer()
+                        TextField("Step", text: $newHowToCookStep)
                             .multilineTextAlignment(TextAlignment.center)
                             .textFieldStyle(.roundedBorder)
+                            .padding(12)
                         
                         Button(action: {newHowToCookSteps.append(newHowToCookStep); newHowToCookStep = ""},
-                               label: {Image(systemName: "plus.app").font(.system(size: 20))})
+                               label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add step")})
                         Spacer()
                         
                          
