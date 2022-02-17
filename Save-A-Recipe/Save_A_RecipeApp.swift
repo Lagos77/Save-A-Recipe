@@ -18,15 +18,10 @@ struct Save_A_RecipeApp: App {
         FirebaseApp.configure()
     }
     
-    
-    
     var body: some Scene {
         
         WindowGroup {
-          //  LoginView()
             ContentView()
-           // CookBookView()
-           
                 .environmentObject(cookBook)
         }
     }

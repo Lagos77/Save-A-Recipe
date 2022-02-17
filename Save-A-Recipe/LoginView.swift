@@ -20,22 +20,16 @@ struct LoginView: View {
     @State var loginStatusMEssage = ""
     
     var body: some View {
-        
         NavigationView {
             ScrollView {
-                 
                 VStack(spacing: 16) {
                     Picker(selection: $isLoginMode, label: Text("Picker here")) {
-                                          Text("Login")
-                                              .tag(true)
-                                          Text("Create Cookbook")
-                                              .tag(false)
-                                      }.pickerStyle(SegmentedPickerStyle())
+                        Text("Login")
+                            .tag(true)
+                        Text("Create Cookbook")
+                            .tag(false)
+                    }.pickerStyle(SegmentedPickerStyle())
                     
-                    if !isLoginMode {
-
-                    }
-
                     TextField("Email", text: $email)
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
@@ -62,8 +56,6 @@ struct LoginView: View {
                         .foregroundColor(.red)
                 }
                 .padding()
-           // }
-            
             }
             .navigationTitle(isLoginMode ? "Log In" : "Create Account")
             .background(Color(.init(white: 0, alpha: 0.05))
@@ -72,11 +64,9 @@ struct LoginView: View {
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
                 ImagePicker(image: $image)
             }
-    
-    
+        
+        
     }
-    
-   // @State var image: UIImage?
     
     private func handleAction() {
         if isLoginMode {
@@ -90,61 +80,25 @@ struct LoginView: View {
         Auth.auth().signIn(withEmail: email, password: password) {
             result, err in
             if let err = err {
-              //  print("Failed to login user", err)
+                //  print("Failed to login user", err)
                 self.loginStatusMEssage = "Failed to login user \(err)"
                 return
             }
-            
-//            print("Successfully logged in as user \(result?.user.uid ?? "")")
-//            self.loginStatusMEssage = "Successfully logged in as user \(result?.user.uid ?? "")"
-            
             self.didCompleteLoginProcess()
         }
     }
-    
-    
-   // @State var loginStatusMEssage = ""
     
     private func createNewAccount() {
         Auth.auth().createUser(withEmail: email, password: password) {
             result, err in
             if let err = err {
-//                print("Failed to create user", err)
                 self.loginStatusMEssage = "Failed to create user \(err)"
                 return
             }
             
-//            print("Successfully created user \(result?.user.uid ?? "")")
-//            self.loginStatusMEssage = "Successfully created user \(result?.user.uid ?? "")"
-//
-//            self.persistImageToStorage()
             self.didCompleteLoginProcess()
         }
     }
-    
-//    private func persistImageToStorage() {
-//    //    let fileName = UUID().uuidString
-//        guard let uid = Auth.auth().currentUser?.uid
-//        else { return }
-//        let ref = Storage.storage().reference().child(uid)
-//        guard let imageData = self.image?.jpegData(compressionQuality: 0.5) else { return }
-//        ref.putData(imageData, metadata: nil) { metadata, err in
-//            if let err = err {
-//                self.loginStatusMEssage = "Failed to push image to Storage: \(err)"
-//                return
-//            }
-//
-//            ref.downloadURL { url, err in
-//                if let err = err {
-//                    self.loginStatusMEssage = "Failed to retrieve downloadURL: \(err)"
-//                    return
-//                }
-//                self.loginStatusMEssage = "Successfully stored image with imageURL \(url?.absoluteString ?? "")"
-//            }
-//
-//        }
-//    }
-    
 }
 
 //struct LoginView_Previews: PreviewProvider {

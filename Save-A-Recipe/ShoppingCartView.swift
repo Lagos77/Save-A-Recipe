@@ -9,87 +9,76 @@ import SwiftUI
 import Firebase
 
 struct ShoppingCartView: View {
+    var db = Firestore.firestore()
+    @State var products = [Product]()
+    @State var newProduct = ""
+    let uid = Auth.auth().currentUser?.uid
     
-    
-        var db = Firestore.firestore()
-        @State var products = [Product]()
-        @State var newProduct = ""
-        let uid = Auth.auth().currentUser?.uid
-        
-        var body: some View {
-            VStack {
-                HStack {
-                    TextField("Product",text: $newProduct ).padding()
-                    Spacer()
-                    Button(action: {
-                        if newProduct != "" {
+    var body: some View {
+        VStack {
+            HStack {
+                TextField("Product",text: $newProduct ).padding()
+                
+                Button(action: {
+                    if newProduct != "" {
                         saveToFirestore(productName: newProduct)
                         newProduct = ""
-                        }
-                    }, label: {
-                       
-                        Text("Add to cart")
-                            
-                    }).padding()
+                    }
+                }, label: {
+                    Text("Add to cart")
+                }).padding()
                     .onAppear() {
                         listenToFirestore()
                     }
-                }
-                List {
-                    ForEach(products) { product in
-                        HStack {
-                            Text(product.name)
-                            Spacer()
-                            Button(action: {
-                                
-                                if let id = product.id {
-                                    if let uid = uid {
-                                    db.collection("user").document(uid).collection("shoppingCart").document(id).updateData(["done" : !product.done ] )
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                                db.collection("user").document(uid).collection("shoppingCart").document(id).delete()
-                                                }
-                                            
-                                    }
-                                }
-                                    
-                            }, label: {
-                                Image(systemName: product.done ? "checkmark.square" : "square").font(.system(size: 25))
-                            })
-                        }
-                    }.onDelete() { indexSet in
-            
-                        for index in indexSet {
-                            let product = products[index]
+            }
+            List {
+                ForEach(products) { product in
+                    HStack {
+                        Text(product.name)
+                        Spacer()
+                        Button(action: {
+                            
                             if let id = product.id {
                                 if let uid = uid {
-                                db.collection("user").document(uid).collection("shoppingCart").document(id).delete()
+                                    db.collection("user").document(uid).collection("shoppingCart").document(id).updateData(["done" : !product.done ] )
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        db.collection("user").document(uid).collection("shoppingCart").document(id).delete()
+                                    }
                                 }
+                            }
+                        }, label: {
+                            Image(systemName: product.done ? "checkmark.square" : "square").font(.system(size: 25))
+                        })
+                    }
+                }.onDelete() { indexSet in
+                    for index in indexSet {
+                        let product = products[index]
+                        if let id = product.id {
+                            if let uid = uid {
+                                db.collection("user").document(uid).collection("shoppingCart").document(id).delete()
                             }
                         }
                     }
                 }
             }
         }
+    }
+    
+    func saveToFirestore(productName: String) {
+        let product = Product(name: productName)
         
-        func saveToFirestore(productName: String) {
-            let product = Product(name: productName)
-            
-            if let uid = uid {
+        if let uid = uid {
             do {
-                _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: product) //------------------------ ändras
+                _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: product)
             } catch {
                 print("Error saving to DB")
             }
-           
-            /*
-             db.collection("user").document(uid).collection("recipes")
-             */
-            }
         }
-        
-        func listenToFirestore() {
-            if let uid = uid {
-            db.collection("user").document(uid).collection("shoppingCart").addSnapshotListener { snapshot, err in //------------------------ ändras
+    }
+    
+    func listenToFirestore() {
+        if let uid = uid {
+            db.collection("user").document(uid).collection("shoppingCart").addSnapshotListener { snapshot, err in
                 guard let snapshot = snapshot else { return }
                 
                 if let err = err {
@@ -114,18 +103,9 @@ struct ShoppingCartView: View {
                     }
                 }
             }
-            }
         }
-    
-    func delayDelete() {
-       
-            }
-            
-        
     }
-    
-    
-    
+}
 
 
 struct ShoppingCartView_Previews: PreviewProvider {
