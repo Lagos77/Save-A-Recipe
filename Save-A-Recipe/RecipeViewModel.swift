@@ -34,7 +34,7 @@ class RecipeViewModel: ObservableObject {
     
     
     private var db = Firestore.firestore()
-    let uid = Auth.auth().currentUser?.uid
+   // let uid = Auth.auth().currentUser?.uid
 //
 //     func fetchCurrentUser() {
 //
@@ -77,7 +77,7 @@ class RecipeViewModel: ObservableObject {
     }
     
     func fetchData() {
-        if let uid = uid {
+        if let uid = Auth.auth().currentUser?.uid {
         db.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
          //   db.collection("recipes").addSnapshotListener { snapshot, err in
                 guard let snapshot = snapshot else { return }
