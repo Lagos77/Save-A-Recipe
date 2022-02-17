@@ -10,14 +10,10 @@ import FirebaseFirestore
 import SwiftUI
 import Firebase
 
-struct ChatUser {
-    let uid, email: String
-}
 
 class RecipeViewModel: ObservableObject {
     @Published var recipes = [Recipe]()
     @Published var errorMessage = ""
-    //@Published var chatUser : ChatUser?
     @Published var isUserCurrentlyLoggedOut = false
     
     init() {
@@ -25,42 +21,12 @@ class RecipeViewModel: ObservableObject {
         DispatchQueue.main.async {
             self.isUserCurrentlyLoggedOut = Auth.auth().currentUser?.uid == nil
             
-                }
-        
-
-       // fetchCurrentUser()
+        }
         fetchData()
     }
     
     
     private var db = Firestore.firestore()
-   // let uid = Auth.auth().currentUser?.uid
-//
-//     func fetchCurrentUser() {
-//
-//        guard let uid = Auth.auth().currentUser?.uid else {
-//                self.errorMessage = "Could not find firebase uid"
-//                return
-//            }
-//
-//            db.collection("user").document(uid).getDocument { snapshot, error in
-//                if let error = error {
-//                    self.errorMessage = "Failed to fetch current user: \(error)"
-//                    print("Failed to fetch current user:", error)
-//                    return
-//                }
-//
-//                guard let data = snapshot?.data() else {
-//                    self.errorMessage = "No data found"
-//                    return
-//
-//                }
-//                let uid = data["uid"] as? String ?? ""
-//                let email = data["email"] as? String ?? ""
-//
-//                self.chatUser = ChatUser(uid: uid, email: email)
-//            }
-//        }
     
     func handleSignOut() {
         isUserCurrentlyLoggedOut.toggle()
@@ -69,19 +35,19 @@ class RecipeViewModel: ObservableObject {
     
     func logout() {
         let firebaseAuth = Auth.auth()
-    do {
-      try firebaseAuth.signOut()
-    } catch let signOutError as NSError {
-      print("Error signing out: %@", signOutError)
-    }
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
     
     func fetchData() {
         if let uid = Auth.auth().currentUser?.uid {
-        db.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
-         //   db.collection("recipes").addSnapshotListener { snapshot, err in
+            db.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
+                //   db.collection("recipes").addSnapshotListener { snapshot, err in
                 guard let snapshot = snapshot else { return }
-
+                
                 if let err = err {
                     print("Error getting document \(err)")
                 } else {
@@ -105,7 +71,7 @@ class RecipeViewModel: ObservableObject {
                 }
             }
         }
-        }
+    }
 }
 
 

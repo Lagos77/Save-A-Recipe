@@ -15,8 +15,5 @@ struct Recipe : Identifiable, Equatable, Codable {
     var ingredient : [String]
     var howToCook : [String]
     var image : String 
-    }
+}
 
-/*
- @DocumentID var id : String? = UUID().uuidString
- */
