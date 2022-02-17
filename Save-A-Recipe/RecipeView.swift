@@ -8,6 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 import Firebase
+import ToastUI
 
 struct RecipeView : View {
     @EnvironmentObject var cookBook : CookBook
@@ -20,21 +21,22 @@ struct RecipeView : View {
     @State var products = [Product]()
     var db = Firestore.firestore()
     @State var uid = Auth.auth().currentUser?.uid
+    @State private var presentingToast: Bool = false
     
     var body: some View {
         
-        Button {
-            addRecipeToCart()
-        } label: {
-            Image(systemName: "plus")
-                .font(.system(size: 22, weight: .bold))
-                .foregroundColor(Color(.label))
-        }
+//        Button {
+//            addRecipeToCart()
+//        } label: {
+//            Image(systemName: "plus")
+//                .font(.system(size: 22, weight: .bold))
+//                .foregroundColor(Color(.label))
+//        }
         
         VStack {
             if let recipe = recipe {
                 Text(recipe.name)
-                    .font(.system(size: 40))
+                    .font(.system(size: 34, weight: .heavy))
                 WebImage(url: URL(string: recipe.image))
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -71,7 +73,20 @@ struct RecipeView : View {
                     }
                 }
             }
-        }
+        }.navigationBarItems(trailing: Button {
+            presentingToast = true
+            addRecipeToCart()
+          } label: {
+            Image(systemName: "cart.badge.plus")
+          }.toast(isPresented: $presentingToast, dismissAfter: 1.0, onDismiss: nil ) {
+              ToastView("Ingredients added to shopping cart!")
+                  .toastViewStyle(SuccessToastViewStyle())
+          }
+            
+
+                                
+                             
+        )
     }
     
     func addRecipeToCart() {

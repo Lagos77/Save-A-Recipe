@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF4AA8EA27BEA77A00F93A76 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = AF4AA8E927BEA77A00F93A76 /* ToastUI */; };
 		AF7E506C27BAC3C300F3CA1E /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E506B27BAC3C300F3CA1E /* LoginViewModel.swift */; };
 		AF7E506E27BAEF8E00F3CA1E /* CookBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E506D27BAEF8E00F3CA1E /* CookBookView.swift */; };
 		AF7E507227BC371300F3CA1E /* ShoppingCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E507127BC371300F3CA1E /* ShoppingCartViewModel.swift */; };
@@ -82,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF4AA8EA27BEA77A00F93A76 /* ToastUI in Frameworks */,
 				AFA7198427B3B2F30026E263 /* SDWebImageSwiftUI in Frameworks */,
 				AFA7197127B298E40026E263 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				AFA7197327B298E40026E263 /* FirebaseStorage in Frameworks */,
@@ -198,6 +200,7 @@
 				AFA7197027B298E40026E263 /* FirebaseFirestoreSwift-Beta */,
 				AFA7197227B298E40026E263 /* FirebaseStorage */,
 				AFA7198327B3B2F30026E263 /* SDWebImageSwiftUI */,
+				AF4AA8E927BEA77A00F93A76 /* ToastUI */,
 			);
 			productName = "Save-A-Recipe";
 			productReference = AFA7193E27B295E80026E263 /* Save-A-Recipe.app */;
@@ -274,6 +277,7 @@
 			packageReferences = (
 				AFA7196B27B298E40026E263 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				AFA7198227B3B2F20026E263 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				AF4AA8E827BEA77A00F93A76 /* XCRemoteSwiftPackageReference "ToastUI" */,
 			);
 			productRefGroup = AFA7193F27B295E80026E263 /* Products */;
 			projectDirPath = "";
@@ -680,6 +684,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		AF4AA8E827BEA77A00F93A76 /* XCRemoteSwiftPackageReference "ToastUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/quanshousio/ToastUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		AFA7196B27B298E40026E263 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -699,6 +711,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		AF4AA8E927BEA77A00F93A76 /* ToastUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AF4AA8E827BEA77A00F93A76 /* XCRemoteSwiftPackageReference "ToastUI" */;
+			productName = ToastUI;
+		};
 		AFA7196C27B298E40026E263 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = AFA7196B27B298E40026E263 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

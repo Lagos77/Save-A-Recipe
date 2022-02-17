@@ -18,6 +18,23 @@ struct ShoppingCartView: View {
         
         var body: some View {
             VStack {
+                HStack {
+                    TextField("Product",text: $newProduct ).padding()
+                    Spacer()
+                    Button(action: {
+                        if newProduct != "" {
+                        saveToFirestore(productName: newProduct)
+                        newProduct = ""
+                        }
+                    }, label: {
+                       
+                        Text("Add to cart")
+                            
+                    }).padding()
+                    .onAppear() {
+                        listenToFirestore()
+                    }
+                }
                 List {
                     ForEach(products) { product in
                         HStack {
@@ -36,7 +53,7 @@ struct ShoppingCartView: View {
                                 }
                                     
                             }, label: {
-                                Image(systemName: product.done ? "checkmark.square" : "square")
+                                Image(systemName: product.done ? "checkmark.square" : "square").font(.system(size: 25))
                             })
                         }
                     }.onDelete() { indexSet in
@@ -51,24 +68,12 @@ struct ShoppingCartView: View {
                         }
                     }
                 }
-                HStack {
-                    TextField("Product",text: $newProduct ).padding()
-                    Spacer()
-                    Button(action: {
-                        saveToFirestore(productName: newProduct)
-                        newProduct = ""
-                    }, label: {
-                        Text("Save")
-                    }).padding()
-                    .onAppear() {
-                        listenToFirestore()
-                    }
-                }
             }
         }
         
         func saveToFirestore(productName: String) {
             let product = Product(name: productName)
+            
             if let uid = uid {
             do {
                 _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: product) //------------------------ ändras

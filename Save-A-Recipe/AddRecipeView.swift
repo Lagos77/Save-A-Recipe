@@ -65,7 +65,7 @@ struct AddRecipeView: View {
                         .padding(12)
 
                         Spacer()
-                        Spacer()
+
                     }
                     
                     else if isAddingIngredients {
@@ -78,7 +78,7 @@ struct AddRecipeView: View {
                         .padding(12)
                         Button(action: {newRecipeIngredients.append(newIngredient); newIngredient = ""; print(newRecipeIngredients); print("recipe.ingredient: \(recipe.ingredient)"); print(recipe)},
                                label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add ingredient")})
-                        Spacer()
+                       // Spacer()
                          
                     }
                      
@@ -99,7 +99,7 @@ struct AddRecipeView: View {
                         
                         Button(action: {newHowToCookSteps.append(newHowToCookStep); newHowToCookStep = ""},
                                label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add step")})
-                        Spacer()
+                       // Spacer()
                         
                          
                     }

@@ -21,7 +21,7 @@ struct ContentView: View {
     
     
     var db = Firestore.firestore()
-    var uid = Auth.auth().currentUser?.uid
+   // var uid = Auth.auth().currentUser?.uid
     @ObservedObject private var viewModel = RecipeViewModel()
     
     var body: some View {
@@ -87,13 +87,17 @@ struct ContentView: View {
                                         for index in indexSet {
                                             let recipe = viewModel.recipes[index]
                                             if let id = recipe.id {
-                                                if let uid = uid {
+                                                if let uid = Auth.auth().currentUser?.uid {
                                                // db.collection("recipes").document(id).delete()
                                                 db.collection("user").document(uid).collection("recipes").document(id).delete()
                                             }
                                             }
                                         }
                                     }
+                }
+                .onAppear() {
+                    UITableView.appearance().backgroundColor = UIColor.clear
+                    UITableViewCell.appearance().backgroundColor = UIColor.clear
                 }
                 .navigationTitle("Recipes")
 //                .onAppear() {

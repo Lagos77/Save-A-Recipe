@@ -20,9 +20,10 @@ struct LoginView: View {
     @State var loginStatusMEssage = ""
     
     var body: some View {
+        
         NavigationView {
             ScrollView {
-                
+                 
                 VStack(spacing: 16) {
                     Picker(selection: $isLoginMode, label: Text("Picker here")) {
                                           Text("Login")
@@ -32,32 +33,9 @@ struct LoginView: View {
                                       }.pickerStyle(SegmentedPickerStyle())
                     
                     if !isLoginMode {
-//                        Button {
-//                            shouldShowImagePicker.toggle()
-//                        } label: {
-//
-//                            VStack {
-//                                if let image = self.image {
-//                                    Image(uiImage: image)
-//                                        .resizable()
-//                                        .frame(width: 128, height: 128)
-//                                        .cornerRadius(64)
-//                                        .scaledToFill()
-//                                } else {
-//                                    Image(systemName: "person.fill")
-//                                        .font(.system(size: 64))
-//                                        .padding()
-//                                        .foregroundColor(Color(.label))
-//                                }
-//                            }
-//                            .overlay(RoundedRectangle(cornerRadius: 64)
-//                            .stroke(Color.black, lineWidth: 3))
-//                        }
+
                     }
-                    
-                    
-                    
-                    
+
                     TextField("Email", text: $email)
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
@@ -84,7 +62,8 @@ struct LoginView: View {
                         .foregroundColor(.red)
                 }
                 .padding()
-                
+           // }
+            
             }
             .navigationTitle(isLoginMode ? "Log In" : "Create Account")
             .background(Color(.init(white: 0, alpha: 0.05))
@@ -93,6 +72,8 @@ struct LoginView: View {
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
                 ImagePicker(image: $image)
             }
+    
+    
     }
     
    // @State var image: UIImage?
