@@ -11,12 +11,14 @@ import SDWebImage
 import SDWebImageSwiftUI
 
 struct ContentView: View {
+    
     @EnvironmentObject var cookBook : CookBook
+    var db = Firestore.firestore()
+    @ObservedObject private var viewModel = RecipeViewModel()
+    
     @State var showInfo : Bool = false
     @State var shouldShowLogOutOptions = false
     @State var showAddRecipe = false
-    var db = Firestore.firestore()
-    @ObservedObject private var viewModel = RecipeViewModel()
     
     var body: some View {
         NavigationView {
