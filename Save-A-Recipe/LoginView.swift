@@ -10,20 +10,23 @@ import Firebase
 
 struct LoginView: View {
     
+    //Takes to another view
     let didCompleteLoginProcess: () -> ()
     
-    @State var isLoginMode = true
+    @State var isLoggedIn = true
+    @State var shouldShowImagePicker = false
+    
+    @State var image: UIImage?
+    
     @State var email = ""
     @State var password = ""
-    @State var shouldShowImagePicker = false
-    @State var image: UIImage?
     @State var loginStatusMEssage = ""
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack(spacing: 16) {
-                    Picker(selection: $isLoginMode, label: Text("Picker here")) {
+                    Picker(selection: $isLoggedIn, label: Text("Picker here")) {
                         Text("Login")
                             .tag(true)
                         Text("Create Cookbook")
@@ -45,7 +48,7 @@ struct LoginView: View {
                     } label: {
                         HStack {
                             Spacer()
-                            Text(isLoginMode ? "Log In" : "Create Account")
+                            Text(isLoggedIn ? "Log In" : "Create Account")
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                                 .font(.system(size: 14, weight:.semibold))
@@ -57,9 +60,9 @@ struct LoginView: View {
                 }
                 .padding()
             }
-            .navigationTitle(isLoginMode ? "Log In" : "Create Account")
+            .navigationTitle(isLoggedIn ? "Log In" : "Create Account")
             .background(Color(.init(white: 0, alpha: 0.05))
-                            .ignoresSafeArea())
+                .ignoresSafeArea())
         }.navigationViewStyle(StackNavigationViewStyle())
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
                 ImagePicker(image: $image)
@@ -69,7 +72,7 @@ struct LoginView: View {
     }
     
     private func handleAction() {
-        if isLoginMode {
+        if isLoggedIn {
             loginUser()
         } else {
             createNewAccount()
@@ -80,7 +83,6 @@ struct LoginView: View {
         Auth.auth().signIn(withEmail: email, password: password) {
             result, err in
             if let err = err {
-                
                 self.loginStatusMEssage = "Failed to login user \(err)"
                 return
             }
@@ -95,7 +97,6 @@ struct LoginView: View {
                 self.loginStatusMEssage = "Failed to create user \(err)"
                 return
             }
-            
             self.didCompleteLoginProcess()
         }
     }
