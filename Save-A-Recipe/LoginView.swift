@@ -83,7 +83,7 @@ struct LoginView: View {
         Auth.auth().signIn(withEmail: email, password: password) {
             result, err in
             if let err = err {
-                self.loginStatusMEssage = "Failed to login user \(err)"
+                self.loginStatusMEssage = "Failed to login user"
                 return
             }
             self.didCompleteLoginProcess()
@@ -94,7 +94,7 @@ struct LoginView: View {
         Auth.auth().createUser(withEmail: email, password: password) {
             result, err in
             if let err = err {
-                self.loginStatusMEssage = "Failed to create user \(err)"
+                self.loginStatusMEssage = "Failed to create user"
                 return
             }
             self.didCompleteLoginProcess()
