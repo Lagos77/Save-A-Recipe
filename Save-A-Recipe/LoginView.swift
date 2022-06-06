@@ -80,7 +80,7 @@ struct LoginView: View {
         Auth.auth().signIn(withEmail: email, password: password) {
             result, err in
             if let err = err {
-                //  print("Failed to login user", err)
+                
                 self.loginStatusMEssage = "Failed to login user \(err)"
                 return
             }
@@ -100,9 +100,3 @@ struct LoginView: View {
         }
     }
 }
-
-//struct LoginView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginView()
-//    }
-//}

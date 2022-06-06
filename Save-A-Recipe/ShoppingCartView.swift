@@ -92,7 +92,7 @@ struct ShoppingCartView: View {
                         switch result {
                         case .success(let ingredient) :
                             if let ingredient = ingredient {
-                                //print("Item: \(item)")
+                               
                                 products.append(ingredient)
                             } else {
                                 print("Document does not exist")

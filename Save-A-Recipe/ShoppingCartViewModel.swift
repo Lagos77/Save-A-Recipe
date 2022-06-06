@@ -25,7 +25,7 @@ class ShoppingCartViewModel: ObservableObject {
             print("Error saving to DB")
         }
     }
-       // db.collection("tmp").addDocument(data: ["name" : "David"])
+
     }
     
     func listenToFirestore() {
@@ -43,7 +43,7 @@ class ShoppingCartViewModel: ObservableObject {
                     switch result {
                     case .success(let ingredient) :
                         if let ingredient = ingredient {
-                            //print("Item: \(item)")
+                           
                             self.products.append(ingredient)
                         } else {
                             print("Document does not exist")
