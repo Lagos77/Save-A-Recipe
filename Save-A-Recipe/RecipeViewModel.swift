@@ -45,7 +45,7 @@ class RecipeViewModel: ObservableObject {
     func fetchData() {
         if let uid = Auth.auth().currentUser?.uid {
             db.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
-      
+                
                 guard let snapshot = snapshot else { return }
                 
                 if let err = err {
@@ -59,7 +59,7 @@ class RecipeViewModel: ObservableObject {
                         switch result {
                         case .success(let recipe) :
                             if let recipe = recipe {
-                            
+                                
                                 self.recipes.append(recipe)
                             } else {
                                 print("Document does not exist")

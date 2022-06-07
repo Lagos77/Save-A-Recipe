@@ -49,7 +49,6 @@ struct ContentView: View {
                 .actionSheet(isPresented: $shouldShowLogOutOptions) {
                     .init(title: Text("Settings"), message: Text("What do you want to do?"), buttons: [
                         .destructive(Text("Sign Out"), action: {
-                            print("handle sign out")
                             viewModel.handleSignOut()
                         }),
                         .cancel()
