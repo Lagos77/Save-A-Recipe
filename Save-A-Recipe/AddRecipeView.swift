@@ -57,14 +57,7 @@ struct AddRecipeView: View {
                             .padding(12)
                         Spacer()
                     } else if isAddingIngredients {
-                        VStack{
-                            TextField("Ingredient", text: $newIngredient)
-                                .multilineTextAlignment(TextAlignment.center)
-                                .textFieldStyle(.roundedBorder)
-                                .padding(12)
-                            Button(action: {listIngredients.append(newIngredient); newIngredient = ""},
-                                   label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add ingredient")})
-                        }
+                        addingIngredient
                         
                         List(listIngredients, id: \.self) { recipe in
                             Text(recipe)
@@ -73,15 +66,7 @@ struct AddRecipeView: View {
                             UITableViewCell.appearance().backgroundColor = UIColor.clear
                         }
                     } else if readyForPublishing {
-                        VStack{
-                            TextField("Step", text: $newHowToCookStep)
-                                .multilineTextAlignment(TextAlignment.center)
-                                .textFieldStyle(.roundedBorder)
-                                .padding(12)
-                            
-                            Button(action: {newHowToCookSteps.append(newHowToCookStep); newHowToCookStep = ""},
-                                   label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add step")}
-                            )}
+                        addingPreparations
                         
                         List(newHowToCookSteps, id: \.self) { step in
                             Text(step)
@@ -126,6 +111,29 @@ struct AddRecipeView: View {
             .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
                 ImagePicker(image: $image)
             }
+    }
+    
+    var addingIngredient: some View {
+        VStack{
+            TextField("Ingredient", text: $newIngredient)
+                .multilineTextAlignment(TextAlignment.center)
+                .textFieldStyle(.roundedBorder)
+                .padding(12)
+            Button(action: {listIngredients.append(newIngredient); newIngredient = ""},
+                   label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add ingredient")})
+        }
+    }
+    
+    var addingPreparations: some View{
+        VStack{
+            TextField("Step", text: $newHowToCookStep)
+                .multilineTextAlignment(TextAlignment.center)
+                .textFieldStyle(.roundedBorder)
+                .padding(12)
+            
+            Button(action: {newHowToCookSteps.append(newHowToCookStep); newHowToCookStep = ""},
+                   label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add step")}
+            )}
     }
     
     private func ImageStorage(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
