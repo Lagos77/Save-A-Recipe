@@ -18,8 +18,6 @@ struct RecipeView : View {
     @State var recipeIngredients = [String]()
     @State var product : Product?
     @State var products = [Product]()
-    var db = Firestore.firestore()
-    @State var uid = Auth.auth().currentUser?.uid
     @State private var presentingToast: Bool = false
     
     var body: some View {
@@ -81,10 +79,10 @@ struct RecipeView : View {
         print(recipeIngredients)
         
         for ingredient in recipeIngredients {
-            if let uid = uid {
+            if let uid = FirebaseManager.shared.auth.currentUser?.uid {
                 let product = Product(name: ingredient)
                 do {
-                    _ = try db.collection("user").document(uid).collection("shoppingCart").addDocument(from: product)
+                    _ = try FirebaseManager.shared.firestore.collection("user").document(uid).collection("shoppingCart").addDocument(from: product)
                 } catch {
                     print("Error saving to DB")
                 }

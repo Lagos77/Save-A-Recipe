@@ -80,7 +80,7 @@ struct LoginView: View {
     }
     
     private func loginUser() {
-        Auth.auth().signIn(withEmail: email, password: password) {
+        FirebaseManager.shared.auth.signIn(withEmail: email, password: password) {
             result, err in
             if let err = err {
                 self.loginStatusMEssage = "Failed to login user"
@@ -91,7 +91,7 @@ struct LoginView: View {
     }
     
     private func createNewAccount() {
-        Auth.auth().createUser(withEmail: email, password: password) {
+        FirebaseManager.shared.auth.createUser(withEmail: email, password: password) {
             result, err in
             if let err = err {
                 self.loginStatusMEssage = "Failed to create user"

@@ -11,12 +11,13 @@ import Firebase
 
 @main
 struct Save_A_RecipeApp: App {
-
+    init(){
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
-        
         WindowGroup {
-            ContentView()
-
+            UserLogged()
         }
     }
 }

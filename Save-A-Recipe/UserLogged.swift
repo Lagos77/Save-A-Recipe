@@ -10,9 +10,7 @@ import Firebase
 import SDWebImage
 import SDWebImageSwiftUI
 
-struct ContentView: View {
-    
-    var db = Firestore.firestore()
+struct UserLogged: View {
     @ObservedObject private var recipeDataManger = RecipeDataManger()
 
     @State var shouldShowLogOutOptions = false
@@ -70,8 +68,8 @@ struct ContentView: View {
                         for index in indexSet {
                             let recipe = recipeDataManger.recipes[index]
                             if let id = recipe.id {
-                                if let uid = Auth.auth().currentUser?.uid {
-                                    db.collection("user").document(uid).collection("recipes").document(id).delete()
+                                if let uid = FirebaseManager.shared.auth.currentUser?.uid {
+                                    FirebaseManager.shared.firestore.collection("user").document(uid).collection("recipes").document(id).delete()
                                 }
                             }
                         }

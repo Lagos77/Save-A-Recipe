@@ -18,7 +18,6 @@ struct AddRecipeView: View {
     @State var newHowToCookSteps: [String]
     @State var recipe = Recipe(name: "", ingredient: [], howToCook: [], image: "")
     @State var addIngredients = true
-    var db = Firestore.firestore()
     @State var shouldShowImagePicker = false
     @State var image: UIImage?
     @State var loginStatusMEssage = ""
@@ -135,9 +134,9 @@ struct AddRecipeView: View {
             
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpg"
-            guard let uid = Auth.auth().currentUser?.uid
+            guard let uid = FirebaseManager.shared.auth.currentUser?.uid
             else { return }
-            let ref = Storage.storage().reference(withPath: uid + newRecipeName)
+            let ref = FirebaseManager.shared.storage.reference(withPath: uid + newRecipeName)
             guard let imageData = (image).jpegData(compressionQuality: 1.0) else { return }
             ref.putData(imageData, metadata: metadata) { metadata, err in
                 if let err = err {
@@ -158,7 +157,7 @@ struct AddRecipeView: View {
                     
                     let recipe = Recipe(name: recipeName, ingredient: recipeIngredient, howToCook: newHowToCook, image: imageRef )
                     do {
-                        _ = try db.collection("user").document(uid).collection("recipes").addDocument(from: recipe)
+                        _ = try FirebaseManager.shared.firestore.collection("user").document(uid).collection("recipes").addDocument(from: recipe)
                     } catch {
                         print("Error saving to DB")
                     }
