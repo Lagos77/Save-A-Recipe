@@ -12,11 +12,9 @@ import SDWebImageSwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var cookBook : CookBook
     var db = Firestore.firestore()
     @ObservedObject private var recipeDataManger = RecipeDataManger()
-    
-    @State var showInfo : Bool = false
+
     @State var shouldShowLogOutOptions = false
     @State var showAddRecipe = false
     
@@ -57,7 +55,7 @@ struct ContentView: View {
                 .fullScreenCover(isPresented: $recipeDataManger.isUserCurrentlyLoggedOut, onDismiss: nil) {
                     LoginView(didCompleteLoginProcess: {
                         self.recipeDataManger.isUserCurrentlyLoggedOut = false
-                        self.recipeDataManger.fetchData()
+                        self.recipeDataManger.postRecipe()
                     })
                 }
                 

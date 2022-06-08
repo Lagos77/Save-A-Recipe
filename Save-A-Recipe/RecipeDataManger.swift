@@ -22,7 +22,7 @@ class RecipeDataManger: ObservableObject {
             self.isUserCurrentlyLoggedOut = Auth.auth().currentUser?.uid == nil
             
         }
-        fetchData()
+        postRecipe()
     }
     
     
@@ -42,7 +42,7 @@ class RecipeDataManger: ObservableObject {
         }
     }
     
-    func fetchData() {
+    func postRecipe() {
         if let uid = Auth.auth().currentUser?.uid {
             db.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
                 

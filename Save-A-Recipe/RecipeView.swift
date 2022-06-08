@@ -11,7 +11,7 @@ import Firebase
 import ToastUI
 
 struct RecipeView : View {
-    @EnvironmentObject var cookBook : CookBook
+
     var recipe : Recipe? = nil
     @Environment(\.presentationMode) var presentationMode
     @State  var howTo = false
