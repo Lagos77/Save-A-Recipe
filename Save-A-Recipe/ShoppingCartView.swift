@@ -18,8 +18,10 @@ struct ShoppingCartView: View {
     
     var body: some View {
         VStack {
+            
             addingProduct
             
+            //List showed of added products. Fetching with firebase.
             List {
                 ForEach(productList) { product in
                     HStack {
@@ -39,6 +41,7 @@ struct ShoppingCartView: View {
                             Image(systemName: product.done ? "checkmark.square" : "square").font(.system(size: 25))
                         })
                     }
+                //Delete function
                 }.onDelete() { indexSet in
                     for index in indexSet {
                         let product = productList[index]
