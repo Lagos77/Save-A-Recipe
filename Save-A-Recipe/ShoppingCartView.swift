@@ -9,7 +9,7 @@ import SwiftUI
 import Firebase
 
 struct ShoppingCartView: View {
-    @State var products = [Product]()
+    @State var productList = [Product]()
     @State var newProduct = ""
     
     var body: some View {
@@ -30,7 +30,7 @@ struct ShoppingCartView: View {
                     }
             }
             List {
-                ForEach(products) { product in
+                ForEach(productList) { product in
                     HStack {
                         Text(product.name)
                         Spacer()
@@ -50,7 +50,7 @@ struct ShoppingCartView: View {
                     }
                 }.onDelete() { indexSet in
                     for index in indexSet {
-                        let product = products[index]
+                        let product = productList[index]
                         if let id = product.id {
                             if let uid = FirebaseManager.shared.auth.currentUser?.uid {
                                 FirebaseManager.shared.firestore.collection("user").document(uid).collection("shoppingCart").document(id).delete()
@@ -82,7 +82,7 @@ struct ShoppingCartView: View {
                 if let err = err {
                     print("Error getting document \(err)")
                 } else {
-                    products.removeAll()
+                    productList.removeAll()
                     for document in snapshot.documents {
                         let result = Result {
                             try document.data(as: Product.self)
@@ -91,7 +91,7 @@ struct ShoppingCartView: View {
                         case .success(let ingredient) :
                             if let ingredient = ingredient {
                                
-                                products.append(ingredient)
+                                productList.append(ingredient)
                             } else {
                                 print("Document does not exist")
                             }

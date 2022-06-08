@@ -25,9 +25,6 @@ class RecipeDataManger: ObservableObject {
         postRecipe()
     }
     
-    
-    private var db = Firestore.firestore()
-    
     func handleSignOut() {
         isUserCurrentlyLoggedOut.toggle()
         try? Auth.auth().signOut()
@@ -44,7 +41,7 @@ class RecipeDataManger: ObservableObject {
     
     func postRecipe() {
         if let uid = Auth.auth().currentUser?.uid {
-            db.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
+            FirebaseManager.shared.firestore.collection("user").document(uid).collection("recipes").addSnapshotListener { snapshot, err in
                 
                 guard let snapshot = snapshot else { return }
                 

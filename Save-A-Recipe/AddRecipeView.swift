@@ -17,7 +17,6 @@ struct AddRecipeView: View {
     @State var newHowToCookStep: String = ""
     @State var newHowToCookSteps: [String]
     @State var recipe = Recipe(name: "", ingredient: [], howToCook: [], image: "")
-    @State var addIngredients = true
     @State var shouldShowImagePicker = false
     @State var image: UIImage?
     @State var loginStatusMEssage = ""
@@ -63,7 +62,7 @@ struct AddRecipeView: View {
                                 .multilineTextAlignment(TextAlignment.center)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(12)
-                            Button(action: {listIngredients.append(newIngredient); newIngredient = ""; print(listIngredients); print("recipe.ingredient: \(recipe.ingredient)"); print(recipe)},
+                            Button(action: {listIngredients.append(newIngredient); newIngredient = ""},
                                    label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add ingredient")})
                         }
                         
@@ -101,7 +100,7 @@ struct AddRecipeView: View {
                     isAddingIngredients.toggle()
                     readyForPublishing.toggle()
                 } else if readyForPublishing {
-                    addImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: listIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
+                    ImageStorage(recipeName: newRecipeName, recipeIngredient: listIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
                 }
             } label: {
                 HStack {
@@ -129,7 +128,7 @@ struct AddRecipeView: View {
             }
     }
     
-    private func addImageToStorageAndSaveRecipe(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
+    private func ImageStorage(recipeName: String, recipeIngredient: [String], newHowToCook : [String]) {
         if let image = image {
             
             let metadata = StorageMetadata()

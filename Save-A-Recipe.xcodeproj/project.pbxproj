@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		35DC4EBD2850DA5600E815EC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DC4EBC2850DA5600E815EC /* FirebaseManager.swift */; };
 		AF4AA8EA27BEA77A00F93A76 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = AF4AA8E927BEA77A00F93A76 /* ToastUI */; };
-		AF7E507227BC371300F3CA1E /* ShoppingCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E507127BC371300F3CA1E /* ShoppingCartViewModel.swift */; };
 		AF7E507427BC385500F3CA1E /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E507327BC385500F3CA1E /* Product.swift */; };
 		AFA7194227B295E80026E263 /* Save_A_RecipeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7194127B295E80026E263 /* Save_A_RecipeApp.swift */; };
 		AFA7194427B295E80026E263 /* UserLogged.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA7194327B295E80026E263 /* UserLogged.swift */; };
@@ -52,7 +51,6 @@
 
 /* Begin PBXFileReference section */
 		35DC4EBC2850DA5600E815EC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		AF7E507127BC371300F3CA1E /* ShoppingCartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartViewModel.swift; sourceTree = "<group>"; };
 		AF7E507327BC385500F3CA1E /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		AFA7193E27B295E80026E263 /* Save-A-Recipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Save-A-Recipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA7194127B295E80026E263 /* Save_A_RecipeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Save_A_RecipeApp.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 				AFA7197A27B2A0A60026E263 /* RecipeView.swift */,
 				AFA7197C27B2A0D20026E263 /* RecipeID.swift */,
 				AFA7197E27B2A0F90026E263 /* ShoppingCartView.swift */,
-				AF7E507127BC371300F3CA1E /* ShoppingCartViewModel.swift */,
 				AF7E507327BC385500F3CA1E /* Product.swift */,
 				AFA7194527B295F60026E263 /* Assets.xcassets */,
 				AFA7194727B295F60026E263 /* Preview Content */,
@@ -341,7 +338,6 @@
 				AFA7197D27B2A0D20026E263 /* RecipeID.swift in Sources */,
 				AFA7197F27B2A0F90026E263 /* ShoppingCartView.swift in Sources */,
 				AFB579A727B802E60029E6ED /* ImagePicker.swift in Sources */,
-				AF7E507227BC371300F3CA1E /* ShoppingCartViewModel.swift in Sources */,
 				AFA7194227B295E80026E263 /* Save_A_RecipeApp.swift in Sources */,
 				AFA7197B27B2A0A60026E263 /* RecipeView.swift in Sources */,
 			);
