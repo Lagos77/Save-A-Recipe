@@ -11,6 +11,9 @@ import Firebase
 import ToastUI
 
 struct RecipeView : View {
+    /*
+     When the user selects a specific recipe, this view opens and shows all the text that the user has entered for the specific recipe.
+     */
 
     var recipe : Recipe? = nil
     @Environment(\.presentationMode) var presentationMode

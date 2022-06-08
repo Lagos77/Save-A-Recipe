@@ -11,6 +11,15 @@ import SDWebImage
 import SDWebImageSwiftUI
 
 struct UserLogged: View {
+    /*
+        This view is showed after the user has successfully logged in.
+     On this view are three action button showed:
+     1. Shoppingcart
+     2. Exit door
+     3. Add new recipe
+     4. Clicklistener for each recipe created of current user.
+     */
+    
     @ObservedObject private var recipeDataManger = RecipeDataManger()
 
     @State var shouldShowLogOutOptions = false
@@ -20,7 +29,9 @@ struct UserLogged: View {
         NavigationView {
             VStack {
                 
+                    
                 HStack(spacing: 16) {
+                    //Symbol for shopping. While clicking, takes to next view
                     NavigationLink(destination: ShoppingCartView()) {
                         Image(systemName: "cart")
                             .font(.system(size: 24, weight: .bold))
@@ -31,6 +42,7 @@ struct UserLogged: View {
                     Text("Recipes")
                         .font(.system(size: 34, weight: .heavy))
                     Spacer()
+                    //Symbol for door. While clicking, a actionSheet opens asking if you want to logout
                     Button {
                         shouldShowLogOutOptions.toggle()
                     } label: {
@@ -39,7 +51,6 @@ struct UserLogged: View {
                             .foregroundColor(Color(.label))
                     }
                 }
-                
                 
                 .padding()
                 .actionSheet(isPresented: $shouldShowLogOutOptions) {
@@ -56,15 +67,15 @@ struct UserLogged: View {
                         self.recipeDataManger.postRecipe()
                     })
                 }
-                
+                //Show list for created recipes for current user
                 List {
                     ForEach(recipeDataManger.recipes) { recipe in
                         NavigationLink(destination: RecipeView(recipe: recipe)) {
                             RowView(recipe: recipe)
                         }
                     }
+                    //Delete function for recipe for current user
                     .onDelete() { indexSet in
-                        
                         for index in indexSet {
                             let recipe = recipeDataManger.recipes[index]
                             if let id = recipe.id {
@@ -81,6 +92,7 @@ struct UserLogged: View {
                 }
                 .navigationTitle("Recipes")
             }
+            //Button for adding a new recipe
             .overlay(Button {
                 showAddRecipe.toggle()
             } label: {

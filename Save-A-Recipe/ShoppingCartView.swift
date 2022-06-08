@@ -9,26 +9,17 @@ import SwiftUI
 import Firebase
 
 struct ShoppingCartView: View {
+    /*
+     When clicking shopping icon, this view opens.
+     It works like a "to-do" list.
+     */
     @State var productList = [Product]()
     @State var newProduct = ""
     
     var body: some View {
         VStack {
-            HStack {
-                TextField("Product",text: $newProduct ).padding()
-                
-                Button(action: {
-                    if newProduct != "" {
-                        saveToFirestore(productName: newProduct)
-                        newProduct = ""
-                    }
-                }, label: {
-                    Text("Add to cart")
-                }).padding()
-                    .onAppear() {
-                        listenToFirestore()
-                    }
-            }
+            addingProduct
+            
             List {
                 ForEach(productList) { product in
                     HStack {
@@ -59,6 +50,24 @@ struct ShoppingCartView: View {
                     }
                 }
             }
+        }
+    }
+    
+    var addingProduct: some View{
+        HStack {
+            TextField("Product",text: $newProduct ).padding()
+            
+            Button(action: {
+                if newProduct != "" {
+                    saveToFirestore(productName: newProduct)
+                    newProduct = ""
+                }
+            }, label: {
+                Text("Add to cart")
+            }).padding()
+                .onAppear() {
+                    listenToFirestore()
+                }
         }
     }
     

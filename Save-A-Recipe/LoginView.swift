@@ -10,6 +10,11 @@ import Firebase
 
 struct LoginView: View {
     
+    /*
+     First view when user is starting the app.
+     Displays two text fields and two tabs for login process and create account
+     */
+    
     //Takes to another view
     let didCompleteLoginProcess: () -> ()
     

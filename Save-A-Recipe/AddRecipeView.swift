@@ -11,6 +11,14 @@ import Firebase
 
 struct AddRecipeView: View {
     
+    /*
+    This view is showed when current user is about to create a new recipe.
+     The view goes under a certain order:
+     1. User selectes an image from the device & adds a title for the recipe
+     2. Then the user adds all the necessary ingredients by texting them
+     3. Finally the user add text in which order the recipe should be followed
+     */
+    
     @State var newIngredient: String = ""
     @State var listIngredients : [String] = []
     @State var newRecipeName: String = ""
@@ -57,6 +65,7 @@ struct AddRecipeView: View {
                             .padding(12)
                         Spacer()
                     } else if isAddingIngredients {
+                        
                         addingIngredient
                         
                         List(listIngredients, id: \.self) { recipe in
@@ -66,6 +75,7 @@ struct AddRecipeView: View {
                             UITableViewCell.appearance().backgroundColor = UIColor.clear
                         }
                     } else if readyForPublishing {
+                        
                         addingPreparations
                         
                         List(newHowToCookSteps, id: \.self) { step in
