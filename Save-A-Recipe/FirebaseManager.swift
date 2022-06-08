@@ -10,6 +10,11 @@ import FirebaseFirestore
 import Firebase
 import SwiftUI
 
-class FirebaseManager: ObservedObject{
+class FirebaseManager: ObservableObject{
+    @Published var isUserCurrentlyLoggedOut = false
     
+    func handleSignOut() {
+        isUserCurrentlyLoggedOut.toggle()
+        try? Auth.auth().signOut()
+    }
 }
