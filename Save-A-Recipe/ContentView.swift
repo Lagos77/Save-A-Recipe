@@ -14,7 +14,7 @@ struct ContentView: View {
     
     @EnvironmentObject var cookBook : CookBook
     var db = Firestore.firestore()
-    @ObservedObject private var viewModel = RecipeViewModel()
+    @ObservedObject private var recipeDataManger = RecipeDataManger()
     
     @State var showInfo : Bool = false
     @State var shouldShowLogOutOptions = false
@@ -49,20 +49,20 @@ struct ContentView: View {
                 .actionSheet(isPresented: $shouldShowLogOutOptions) {
                     .init(title: Text("Settings"), message: Text("What do you want to do?"), buttons: [
                         .destructive(Text("Sign Out"), action: {
-                            viewModel.handleSignOut()
+                            recipeDataManger.handleSignOut()
                         }),
                         .cancel()
                     ])
                 }
-                .fullScreenCover(isPresented: $viewModel.isUserCurrentlyLoggedOut, onDismiss: nil) {
+                .fullScreenCover(isPresented: $recipeDataManger.isUserCurrentlyLoggedOut, onDismiss: nil) {
                     LoginView(didCompleteLoginProcess: {
-                        self.viewModel.isUserCurrentlyLoggedOut = false
-                        self.viewModel.fetchData()
+                        self.recipeDataManger.isUserCurrentlyLoggedOut = false
+                        self.recipeDataManger.fetchData()
                     })
                 }
                 
                 List {
-                    ForEach(viewModel.recipes) { recipe in
+                    ForEach(recipeDataManger.recipes) { recipe in
                         NavigationLink(destination: RecipeView(recipe: recipe)) {
                             RowView(recipe: recipe)
                         }
@@ -70,7 +70,7 @@ struct ContentView: View {
                     .onDelete() { indexSet in
                         
                         for index in indexSet {
-                            let recipe = viewModel.recipes[index]
+                            let recipe = recipeDataManger.recipes[index]
                             if let id = recipe.id {
                                 if let uid = Auth.auth().currentUser?.uid {
                                     db.collection("user").document(uid).collection("recipes").document(id).delete()

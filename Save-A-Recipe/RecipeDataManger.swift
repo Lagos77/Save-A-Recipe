@@ -11,7 +11,7 @@ import SwiftUI
 import Firebase
 
 
-class RecipeViewModel: ObservableObject {
+class RecipeDataManger: ObservableObject {
     @Published var recipes = [Recipe]()
     @Published var errorMessage = ""
     @Published var isUserCurrentlyLoggedOut = false
