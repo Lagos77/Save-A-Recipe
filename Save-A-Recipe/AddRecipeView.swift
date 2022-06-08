@@ -12,7 +12,7 @@ import Firebase
 struct AddRecipeView: View {
     
     @State var newIngredient: String = ""
-    @State var newRecipeIngredients : [String] = []
+    @State var listIngredients : [String] = []
     @State var newRecipeName: String = ""
     @State var newHowToCookStep: String = ""
     @State var newHowToCookSteps: [String]
@@ -63,11 +63,11 @@ struct AddRecipeView: View {
                                 .multilineTextAlignment(TextAlignment.center)
                                 .textFieldStyle(.roundedBorder)
                                 .padding(12)
-                            Button(action: {newRecipeIngredients.append(newIngredient); newIngredient = ""; print(newRecipeIngredients); print("recipe.ingredient: \(recipe.ingredient)"); print(recipe)},
+                            Button(action: {listIngredients.append(newIngredient); newIngredient = ""; print(listIngredients); print("recipe.ingredient: \(recipe.ingredient)"); print(recipe)},
                                    label: {Image(systemName: "plus.app").font(.system(size: 20)); Text("Add ingredient")})
                         }
                         
-                        List(newRecipeIngredients, id: \.self) { recipe in
+                        List(listIngredients, id: \.self) { recipe in
                             Text(recipe)
                         }.onAppear() {
                             UITableView.appearance().backgroundColor = UIColor.clear
@@ -101,7 +101,7 @@ struct AddRecipeView: View {
                     isAddingIngredients.toggle()
                     readyForPublishing.toggle()
                 } else if readyForPublishing {
-                    addImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: newRecipeIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
+                    addImageToStorageAndSaveRecipe(recipeName: newRecipeName, recipeIngredient: listIngredients, newHowToCook: newHowToCookSteps); presentationMode.wrappedValue.dismiss()
                 }
             } label: {
                 HStack {
