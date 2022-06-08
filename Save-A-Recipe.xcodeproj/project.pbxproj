@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		35DC4EB72850BC5300E815EC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35DC4EB62850BC5300E815EC /* FirebaseManager.swift */; };
 		AF4AA8EA27BEA77A00F93A76 /* ToastUI in Frameworks */ = {isa = PBXBuildFile; productRef = AF4AA8E927BEA77A00F93A76 /* ToastUI */; };
 		AF7E507227BC371300F3CA1E /* ShoppingCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E507127BC371300F3CA1E /* ShoppingCartViewModel.swift */; };
 		AF7E507427BC385500F3CA1E /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7E507327BC385500F3CA1E /* Ingredient.swift */; };
@@ -52,7 +51,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		35DC4EB62850BC5300E815EC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		AF7E507127BC371300F3CA1E /* ShoppingCartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingCartViewModel.swift; sourceTree = "<group>"; };
 		AF7E507327BC385500F3CA1E /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		AFA7193E27B295E80026E263 /* Save-A-Recipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Save-A-Recipe.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,7 +135,6 @@
 				AFA7198027B2ABA80026E263 /* AddRecipeView.swift */,
 				AFB579A427B7D81E0029E6ED /* LoginView.swift */,
 				AFA7197627B2A0530026E263 /* RecipeViewModel.swift */,
-				35DC4EB62850BC5300E815EC /* FirebaseManager.swift */,
 				AFA7197827B2A07F0026E263 /* CookBook.swift */,
 				AFA7197A27B2A0A60026E263 /* RecipeView.swift */,
 				AFA7197C27B2A0D20026E263 /* Recipe.swift */,
@@ -319,7 +316,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35DC4EB72850BC5300E815EC /* FirebaseManager.swift in Sources */,
 				AFA7197927B2A07F0026E263 /* CookBook.swift in Sources */,
 				AFA7194427B295E80026E263 /* ContentView.swift in Sources */,
 				AF7E507427BC385500F3CA1E /* Ingredient.swift in Sources */,

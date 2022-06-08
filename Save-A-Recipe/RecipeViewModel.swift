@@ -16,18 +16,17 @@ class RecipeViewModel: ObservableObject {
     @Published var errorMessage = ""
     @Published var isUserCurrentlyLoggedOut = false
     
-    private var db = Firestore.firestore()
-    
     init() {
         
         DispatchQueue.main.async {
             self.isUserCurrentlyLoggedOut = Auth.auth().currentUser?.uid == nil
+            
         }
         fetchData()
     }
     
     
-    
+    private var db = Firestore.firestore()
     
     func handleSignOut() {
         isUserCurrentlyLoggedOut.toggle()
